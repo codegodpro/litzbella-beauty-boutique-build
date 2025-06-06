@@ -1,4 +1,4 @@
-```tsx name=src/pages/ProductDetail.tsx
+
 import { Heart, ShoppingBag, Share2, Minus, Plus } from "lucide-react";
 import { ProductReviews } from "@/components/ProductReviews";
 import { RelatedProducts } from "@/components/RelatedProducts";
@@ -201,5 +201,3 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
-```
-**You can now copy and use this file to have a white background for your product page.**
