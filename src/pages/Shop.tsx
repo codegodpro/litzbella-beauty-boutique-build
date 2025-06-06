@@ -1,5 +1,3 @@
-@ -1,273 +1,110 @@
-
 import { useState } from "react";
 import { Header } from "@/components/Header";
 import { ProductCard } from "@/components/ProductCard";
