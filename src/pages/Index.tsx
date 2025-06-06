@@ -7,9 +7,9 @@ import { Footer } from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-white doodle-bg">
+    <div className="min-h-screen bg-gray-50">
       <Header />
-      <main className="space-y-8 pt-20">
+      <main className="space-y-8">
         <div className="container mx-auto px-4 py-8">
           <BannerSlider />
         </div>

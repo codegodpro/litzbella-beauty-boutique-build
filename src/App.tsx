@@ -14,8 +14,6 @@ import Checkout from "./pages/Checkout";
 import TrackOrder from "./pages/TrackOrder";
 import PaymentMethods from "./pages/PaymentMethods";
 import AdminDashboard from "./pages/AdminDashboard";
-import AdminProducts from "./pages/AdminProducts";
-import AdminOrders from "./pages/AdminOrders";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,8 +35,6 @@ const App = () => (
           <Route path="/track-order" element={<TrackOrder />} />
           <Route path="/payment-methods" element={<PaymentMethods />} />
           <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/products" element={<AdminProducts />} />
-          <Route path="/admin/orders" element={<AdminOrders />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

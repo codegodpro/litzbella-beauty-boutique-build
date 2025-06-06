@@ -126,9 +126,9 @@ const Shop = () => {
     };
 
     return (
-      <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover-lift transition-all duration-300">
+      <div className="bg-gray-900 rounded-2xl p-6 shadow-xl border border-yellow-500/20 hover-lift">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-2xl font-bold text-gray-900">{title}</h3>
+          <h3 className="text-2xl font-bold text-white">{title}</h3>
           <div className="flex gap-2">
             <Button
               onClick={scrollLeft}
@@ -155,8 +155,8 @@ const Shop = () => {
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {products.map((product) => (
-            <div key={product.id} className="flex-shrink-0 w-64">
-              <ProductCard product={product} viewMode="grid" compact={true} />
+            <div key={product.id} className="flex-shrink-0 w-72">
+              <ProductCard product={product} viewMode="grid" />
             </div>
           ))}
         </div>
@@ -165,21 +165,21 @@ const Shop = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white doodle-bg">
+    <div className="min-h-screen bg-gray-800">
       <Header />
       
-      <main className="container mx-auto px-4 py-8 pt-24">
+      <main className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="mb-6 text-sm">
-          <a href="/" className="text-gray-500 hover:text-yellow-600">Home</a>
-          <span className="mx-2 text-gray-400">/</span>
-          <span className="text-gray-900">Shop</span>
+          <a href="/" className="text-gray-400 hover:text-yellow-500">Home</a>
+          <span className="mx-2 text-gray-500">/</span>
+          <span className="text-white">Shop</span>
         </nav>
 
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">All Products</h1>
-          <p className="text-gray-600">Discover our complete range of premium beauty products</p>
+          <h1 className="text-3xl font-bold text-white mb-2">All Products</h1>
+          <p className="text-gray-400">Discover our complete range of premium beauty products</p>
         </div>
 
         <div className="flex gap-8">
@@ -191,7 +191,7 @@ const Shop = () => {
           {/* Main Content */}
           <div className="flex-1">
             {/* Toolbar */}
-            <div className="flex items-center justify-between mb-6 p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
+            <div className="flex items-center justify-between mb-6 p-4 bg-gray-900 rounded-lg border border-yellow-500/20">
               <div className="flex items-center gap-4">
                 <Button
                   variant="outline"
@@ -202,7 +202,7 @@ const Shop = () => {
                   <Filter className="w-4 h-4 mr-2" />
                   Filters
                 </Button>
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-gray-400">
                   {Object.values(productsByCategory).flat().length} products found
                 </span>
               </div>
@@ -211,7 +211,7 @@ const Shop = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="text-sm border border-gray-300 rounded-md px-3 py-2 bg-white text-gray-900"
+                  className="text-sm border border-gray-600 rounded-md px-3 py-2 bg-gray-800 text-white"
                 >
                   <option value="featured">Featured</option>
                   <option value="price-low">Price: Low to High</option>
@@ -220,7 +220,7 @@ const Shop = () => {
                   <option value="rating">Highest Rated</option>
                 </select>
 
-                <div className="flex border border-gray-300 rounded-md">
+                <div className="flex border border-gray-600 rounded-md">
                   <Button
                     variant={viewMode === 'grid' ? 'default' : 'ghost'}
                     size="sm"
@@ -241,8 +241,8 @@ const Shop = () => {
               </div>
             </div>
 
-            {/* Categories with Horizontal Scrolling - 4 columns layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Categories with Horizontal Scrolling */}
+            <div className="space-y-8">
               {Object.entries(productsByCategory).map(([categoryKey, products]) => (
                 <ScrollableCategory
                   key={categoryKey}
@@ -256,11 +256,11 @@ const Shop = () => {
             {/* Pagination */}
             <div className="flex justify-center mt-12">
               <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm" className="bg-white text-gray-900 border-gray-300 hover:bg-gray-50">Previous</Button>
+                <Button variant="outline" size="sm" className="bg-gray-900 text-white border-gray-600 hover:bg-gray-800">Previous</Button>
                 <Button size="sm" className="bg-yellow-500 text-black hover:bg-yellow-400">1</Button>
-                <Button variant="outline" size="sm" className="bg-white text-gray-900 border-gray-300 hover:bg-gray-50">2</Button>
-                <Button variant="outline" size="sm" className="bg-white text-gray-900 border-gray-300 hover:bg-gray-50">3</Button>
-                <Button variant="outline" size="sm" className="bg-white text-gray-900 border-gray-300 hover:bg-gray-50">Next</Button>
+                <Button variant="outline" size="sm" className="bg-gray-900 text-white border-gray-600 hover:bg-gray-800">2</Button>
+                <Button variant="outline" size="sm" className="bg-gray-900 text-white border-gray-600 hover:bg-gray-800">3</Button>
+                <Button variant="outline" size="sm" className="bg-gray-900 text-white border-gray-600 hover:bg-gray-800">Next</Button>
               </div>
             </div>
           </div>
