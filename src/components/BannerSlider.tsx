@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -28,42 +27,42 @@ export const BannerSlider = () => {
     },
     {
       id: 3,
-      title: "BEST SELLERS",
-      subtitle: "FRAGRANCES",
-      discount: "40% OFF",
-      buttonText: "Explore",
-      image: "🌸",
-      bgColor: "bg-gradient-to-r from-blue-600 to-indigo-600"
+      title: "GIFTS & SETS",
+      subtitle: "PERFECT FOR ANY OCCASION",
+      discount: "50% OFF",
+      buttonText: "Gift",
+      image: "🎁",
+      bgColor: "bg-gradient-to-r from-pink-500 to-rose-500"
     }
   ];
 
   const banners2 = [
     {
       id: 1,
-      title: "HAIR CARE",
-      subtitle: "TREATMENTS",
-      discount: "20% OFF",
-      buttonText: "Shop",
-      image: "✨",
-      bgColor: "bg-gradient-to-r from-green-600 to-teal-600"
+      title: "SUMMER SALE",
+      subtitle: "LIMITED TIME",
+      discount: "15% OFF",
+      buttonText: "Save Now",
+      image: "☀️",
+      bgColor: "bg-gradient-to-r from-cyan-500 to-blue-500"
     },
     {
       id: 2,
-      title: "BODY CARE",
-      subtitle: "ESSENTIALS",
-      discount: "35% OFF",
-      buttonText: "Browse",
-      image: "🛁",
-      bgColor: "bg-gradient-to-r from-orange-500 to-red-500"
+      title: "BESTSELLERS",
+      subtitle: "MOST LOVED",
+      discount: "10% OFF",
+      buttonText: "See Picks",
+      image: "🌟",
+      bgColor: "bg-gradient-to-r from-lime-500 to-green-500"
     },
     {
       id: 3,
-      title: "GIFT SETS",
-      subtitle: "COLLECTIONS",
-      discount: "50% OFF",
-      buttonText: "Gift",
-      image: "🎁",
-      bgColor: "bg-gradient-to-r from-pink-500 to-rose-500"
+      title: "FREE SHIPPING",
+      subtitle: "ORDERS OVER $50",
+      discount: "No Code Needed",
+      buttonText: "Shop Free",
+      image: "🚚",
+      bgColor: "bg-gradient-to-r from-orange-400 to-yellow-400"
     }
   ];
 
@@ -94,9 +93,9 @@ export const BannerSlider = () => {
 
   return (
     <section className="w-full flex gap-4">
-      {/* First Slider - Larger */}
-      <div className="flex-[2] relative">
-        <div className="aspect-[3/1] overflow-hidden rounded-2xl relative shadow-2xl">
+      {/* First Slider - Larger width */}
+      <div className="flex-[2] min-w-0 relative">
+        <div className="h-[512px] w-full overflow-hidden rounded-2xl relative shadow-2xl">
           {banners1.map((banner, index) => (
             <div
               key={banner.id}
@@ -152,9 +151,9 @@ export const BannerSlider = () => {
         </div>
       </div>
 
-      {/* Second Slider - Smaller */}
-      <div className="flex-1 relative">
-        <div className="aspect-[3/1] overflow-hidden rounded-2xl relative shadow-2xl">
+      {/* Second Slider - Smaller width */}
+      <div className="flex-1 min-w-0 relative">
+        <div className="h-[512px] w-full overflow-hidden rounded-2xl relative shadow-2xl">
           {banners2.map((banner, index) => (
             <div
               key={banner.id}
