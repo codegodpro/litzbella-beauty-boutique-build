@@ -1,5 +1,9 @@
 
+import { useNavigate } from "react-router-dom";
+
 export const HeroBanner = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="relative bg-gradient-to-r from-purple-600 to-pink-600 text-white">
       <div className="container mx-auto px-4 py-16 lg:py-24">
@@ -17,10 +21,16 @@ export const HeroBanner = () => {
               Quality ingredients, stunning results.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+              <button 
+                onClick={() => navigate('/shop')}
+                className="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+              >
                 Shop Now
               </button>
-              <button className="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+              <button 
+                onClick={() => navigate('/shop?filter=new')}
+                className="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors"
+              >
                 View Collection
               </button>
             </div>

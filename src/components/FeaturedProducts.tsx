@@ -1,8 +1,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingBag } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const FeaturedProducts = () => {
+  const navigate = useNavigate();
+
   const products = [
     {
       id: 1,
@@ -66,6 +69,22 @@ export const FeaturedProducts = () => {
     }
   ];
 
+  const handleProductClick = (productId: number) => {
+    navigate(`/product/${productId}`);
+  };
+
+  const handleAddToCart = (e: React.MouseEvent, productName: string) => {
+    e.stopPropagation();
+    console.log('Adding to cart:', productName);
+    // Add to cart logic here
+  };
+
+  const handleWishlist = (e: React.MouseEvent, productName: string) => {
+    e.stopPropagation();
+    console.log('Adding to wishlist:', productName);
+    // Add to wishlist logic here
+  };
+
   return (
     <section className="container mx-auto px-4 py-12">
       <div className="text-center mb-12">
@@ -77,7 +96,11 @@ export const FeaturedProducts = () => {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {products.map((product) => (
-          <div key={product.id} className="group cursor-pointer">
+          <div 
+            key={product.id} 
+            className="group cursor-pointer"
+            onClick={() => handleProductClick(product.id)}
+          >
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1 border border-gray-100">
               {/* Product Image */}
               <div className="relative aspect-square bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center text-6xl">
@@ -96,6 +119,7 @@ export const FeaturedProducts = () => {
                 )}
                 <div className="absolute top-4 right-4">
                   <Button
+                    onClick={(e) => handleWishlist(e, product.name)}
                     variant="ghost"
                     size="icon"
                     className="rounded-full bg-white/80 hover:bg-white shadow-sm"
@@ -134,7 +158,10 @@ export const FeaturedProducts = () => {
                 </div>
 
                 {/* Add to Cart Button */}
-                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2">
+                <Button 
+                  onClick={(e) => handleAddToCart(e, product.name)}
+                  className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2"
+                >
                   <ShoppingBag className="w-4 h-4" />
                   Add to Cart
                 </Button>
@@ -146,6 +173,7 @@ export const FeaturedProducts = () => {
 
       <div className="text-center mt-12">
         <Button 
+          onClick={() => navigate('/shop')}
           variant="outline" 
           className="px-8 py-3 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white"
         >
