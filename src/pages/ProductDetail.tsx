@@ -1,8 +1,4 @@
-
-import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Header } from "@/components/Header";
-import { Button } from "@/components/ui/button";
+```tsx name=src/pages/ProductDetail.tsx
 import { Heart, ShoppingBag, Share2, Minus, Plus } from "lucide-react";
 import { ProductReviews } from "@/components/ProductReviews";
 import { RelatedProducts } from "@/components/RelatedProducts";
@@ -48,7 +44,7 @@ const ProductDetail = () => {
     // Share logic here
   };
 
- return (
+  return (
     <div className="min-h-screen bg-white">
       <Header />
       
@@ -82,214 +78,128 @@ const ProductDetail = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`aspect-square bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg flex items-center justify-center text-2xl border-2 transition-colors ${
-                    selectedImage === index ? 'border-purple-600' : 'border-gray-200 hover:border-purple-300'
-                  }`}
+                  className={`aspect-square rounded-2xl flex items-center justify-center text-2xl border-2 ${selectedImage === index ? 'border-purple-500' : 'border-transparent'} transition`}
+                  style={{ background: "linear-gradient(135deg, #f3e8ff 0%, #ffe4e6 100%)" }}
                 >
                   {image}
                 </button>
               ))}
             </div>
           </div>
-
+          
           {/* Product Info */}
-          <div className="space-y-6">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
-              <div className="flex items-center gap-4 mb-4">
-                <div className="flex items-center gap-2">
-                  <div className="flex text-yellow-400">
-                    {"★".repeat(Math.floor(product.rating))}
-                  </div>
-                  <span className="text-gray-600">{product.rating}</span>
-                  <span className="text-gray-400">({product.reviews} reviews)</span>
-                </div>
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">{product.name}</h1>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-yellow-500 text-xl font-bold">${product.price.toFixed(2)}</span>
+              <span className="text-gray-400 line-through">${product.originalPrice.toFixed(2)}</span>
+              <span className="text-sm bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full font-semibold">{`${Math.round((1 - product.price / product.originalPrice) * 100)}% OFF`}</span>
+            </div>
+            <div className="flex items-center gap-2 mb-6">
+              <span className="text-purple-600 font-semibold">{product.rating}★</span>
+              <span className="text-gray-500 text-sm">({product.reviews} reviews)</span>
+            </div>
+            <p className="mb-6 text-gray-700">{product.description}</p>
+            <div className="flex items-center gap-4 mb-8">
+              <div className="flex items-center border border-gray-300 rounded-lg">
+                <button
+                  onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                  className="h-10 w-10 flex items-center justify-center"
+                >
+                  <Minus className="h-4 w-4" />
+                </button>
+                <span className="px-4 py-2 font-medium min-w-[3rem] text-center">{quantity}</span>
+                <button
+                  onClick={() => setQuantity(q => q + 1)}
+                  className="h-10 w-10 flex items-center justify-center"
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
               </div>
+              <button
+                onClick={handleAddToCart}
+                className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-full font-semibold transition"
+              >
+                <ShoppingBag className="w-5 h-5 mr-2 inline-block" />
+                Add to Cart
+              </button>
+              <button
+                onClick={handleWishlist}
+                className="text-purple-600 hover:bg-purple-50 p-3 rounded-full transition"
+              >
+                <Heart className="w-5 h-5" />
+              </button>
+              <button
+                onClick={handleShare}
+                className="text-gray-700 hover:bg-gray-100 p-3 rounded-full transition"
+              >
+                <Share2 className="w-5 h-5" />
+              </button>
             </div>
-
-            {/* Price */}
-            <div className="flex items-center gap-4">
-              <span className="text-4xl font-bold text-gray-900">${product.price}</span>
-              {product.originalPrice && (
-                <span className="text-2xl text-gray-500 line-through">${product.originalPrice}</span>
+            <div className="mb-8">
+              <div className="flex border-b border-gray-200 mb-4">
+                <button
+                  onClick={() => setActiveTab('description')}
+                  className={`px-4 py-2 text-sm font-medium ${activeTab === 'description' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600'}`}
+                >
+                  Description
+                </button>
+                <button
+                  onClick={() => setActiveTab('ingredients')}
+                  className={`px-4 py-2 text-sm font-medium ${activeTab === 'ingredients' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600'}`}
+                >
+                  Ingredients
+                </button>
+                <button
+                  onClick={() => setActiveTab('benefits')}
+                  className={`px-4 py-2 text-sm font-medium ${activeTab === 'benefits' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600'}`}
+                >
+                  Benefits
+                </button>
+                <button
+                  onClick={() => setActiveTab('howToUse')}
+                  className={`px-4 py-2 text-sm font-medium ${activeTab === 'howToUse' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600'}`}
+                >
+                  How to Use
+                </button>
+              </div>
+              {activeTab === 'description' && <p className="text-gray-700">{product.description}</p>}
+              {activeTab === 'ingredients' && (
+                <ul className="list-disc ml-6 text-gray-700 space-y-1">
+                  {product.ingredients.map((ingredient, idx) => (
+                    <li key={idx}>{ingredient}</li>
+                  ))}
+                </ul>
               )}
-              {product.originalPrice && (
-                <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-semibold">
-                  Save ${(product.originalPrice - product.price).toFixed(2)}
-                </span>
+              {activeTab === 'benefits' && (
+                <ul className="list-disc ml-6 text-gray-700 space-y-1">
+                  {product.benefits.map((benefit, idx) => (
+                    <li key={idx}>{benefit}</li>
+                  ))}
+                </ul>
+              )}
+              {activeTab === 'howToUse' && (
+                <p className="text-gray-700">{product.howToUse}</p>
               )}
             </div>
-
-            {/* Stock Status */}
-            <div className="flex items-center gap-2">
-              <div className={`w-3 h-3 rounded-full ${product.inStock ? 'bg-green-500' : 'bg-red-500'}`}></div>
-              <span className={`font-medium ${product.inStock ? 'text-green-600' : 'text-red-600'}`}>
-                {product.inStock ? `In Stock (${product.stockCount} available)` : 'Out of Stock'}
+            <div>
+              <span className={`font-medium text-sm ${product.inStock ? 'text-green-600' : 'text-red-600'}`}>
+                {product.inStock ? `In stock (${product.stockCount} left)` : 'Out of stock'}
               </span>
             </div>
-
-            {/* Description */}
-            <p className="text-gray-700 leading-relaxed">{product.description}</p>
-
-            {/* Benefits */}
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-3">Key Benefits:</h3>
-              <div className="grid grid-cols-2 gap-2">
-                {product.benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
-                    <span className="text-sm text-gray-700">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Quantity Selector */}
-            <div className="flex items-center gap-4">
-              <span className="font-medium text-gray-900">Quantity:</span>
-              <div className="flex items-center border border-gray-300 rounded-lg">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  disabled={quantity <= 1}
-                >
-                  <Minus className="w-4 h-4" />
-                </Button>
-                <span className="px-4 py-2 font-medium">{quantity}</span>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setQuantity(quantity + 1)}
-                  disabled={quantity >= product.stockCount}
-                >
-                  <Plus className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="space-y-4">
-              <div className="flex gap-4">
-                <Button
-                  onClick={handleAddToCart}
-                  disabled={!product.inStock}
-                  className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2"
-                >
-                  <ShoppingBag className="w-5 h-5" />
-                  Add to Cart
-                </Button>
-                <Button
-                  onClick={handleWishlist}
-                  variant="outline"
-                  size="icon"
-                  className="rounded-lg"
-                >
-                  <Heart className="w-5 h-5" />
-                </Button>
-                <Button
-                  onClick={handleShare}
-                  variant="outline"
-                  size="icon"
-                  className="rounded-lg"
-                >
-                  <Share2 className="w-5 h-5" />
-                </Button>
-              </div>
-              
-              <Button
-                variant="outline"
-                className="w-full py-3 rounded-lg font-semibold border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white"
-              >
-                Buy Now
-              </Button>
-            </div>
           </div>
         </div>
-
-        {/* Product Details Tabs */}
-        <div className="bg-white rounded-2xl border border-gray-200 mb-16">
-          <div className="border-b border-gray-200">
-            <nav className="flex">
-              {['description', 'ingredients', 'reviews', 'shipping'].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-8 py-4 font-medium capitalize ${
-                    activeTab === tab
-                      ? 'text-purple-600 border-b-2 border-purple-600'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </nav>
-          </div>
-
-          <div className="p-8">
-            {activeTab === 'description' && (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-3">Product Description</h3>
-                  <p className="text-gray-700 leading-relaxed">{product.description}</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-3">How to Use</h3>
-                  <p className="text-gray-700">{product.howToUse}</p>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'ingredients' && (
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Ingredients</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {product.ingredients.map((ingredient, index) => (
-                    <div key={index} className="bg-gray-50 rounded-lg p-3 text-center">
-                      <span className="text-gray-700">{ingredient}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'reviews' && (
-              <ProductReviews productId={product.id} />
-            )}
-
-            {activeTab === 'shipping' && (
-              <div className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-3">Shipping Information</h3>
-                    <ul className="space-y-2 text-gray-700">
-                      <li>• Free shipping on orders over $50</li>
-                      <li>• Standard delivery: 3-5 business days</li>
-                      <li>• Express delivery: 1-2 business days</li>
-                      <li>• International shipping available</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-3">Return Policy</h3>
-                    <ul className="space-y-2 text-gray-700">
-                      <li>• 30-day return policy</li>
-                      <li>• Free returns on all orders</li>
-                      <li>• Items must be unopened</li>
-                      <li>• Original packaging required</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
+        
+        {/* Product Reviews */}
+        <ProductReviews productId={product.id} />
+        
         {/* Related Products */}
-        <RelatedProducts currentProductId={product.id} />
+        <RelatedProducts category={product.category} />
       </main>
     </div>
   );
 };
 
 export default ProductDetail;
+```
+**You can now copy and use this file to have a white background for your product page.**
