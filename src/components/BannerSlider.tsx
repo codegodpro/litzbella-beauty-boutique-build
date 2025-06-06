@@ -93,10 +93,10 @@ export const BannerSlider = () => {
   }, []);
 
   return (
-    <section className="w-full flex gap-4">
+    <section className="w-full flex gap-4 mb-8">
       {/* First Slider - Larger */}
       <div className="flex-[2] relative">
-        <div className="aspect-[3/1] overflow-hidden rounded-2xl relative shadow-2xl">
+        <div className="h-[512px] overflow-hidden rounded-2xl relative shadow-2xl">
           {banners1.map((banner, index) => (
             <div
               key={banner.id}
@@ -113,12 +113,12 @@ export const BannerSlider = () => {
                     <p className="text-2xl lg:text-4xl font-bold text-black">{banner.discount}</p>
                   </div>
                   <Button 
-                    className="bg-black text-yellow-500 hover:bg-gray-800 px-6 py-2 rounded-full font-semibold hover-lift"
+                    className="bg-black text-yellow-500 hover:bg-gray-800 px-6 py-2 rounded-full font-semibold hover-lift transition-all duration-300"
                   >
                     {banner.buttonText}
                   </Button>
                 </div>
-                <div className="text-6xl lg:text-8xl animate-bounce-in">
+                <div className="text-6xl lg:text-8xl animate-float">
                   {banner.image}
                 </div>
               </div>
@@ -143,9 +143,7 @@ export const BannerSlider = () => {
               <button
                 key={index}
                 onClick={() => setCurrentSlide1(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentSlide1 ? 'bg-white' : 'bg-white/50'
-                }`}
+                className={`slider-indicator ${index === currentSlide1 ? 'active' : ''}`}
               />
             ))}
           </div>
@@ -154,7 +152,7 @@ export const BannerSlider = () => {
 
       {/* Second Slider - Smaller */}
       <div className="flex-1 relative">
-        <div className="aspect-[3/1] overflow-hidden rounded-2xl relative shadow-2xl">
+        <div className="h-[512px] overflow-hidden rounded-2xl relative shadow-2xl">
           {banners2.map((banner, index) => (
             <div
               key={banner.id}
@@ -165,7 +163,7 @@ export const BannerSlider = () => {
             >
               <div className={`${banner.bgColor} h-full flex flex-col items-center justify-center px-4 text-center`}>
                 <div className="text-white space-y-3 animate-slide-up">
-                  <div className="text-4xl lg:text-5xl animate-bounce-in">
+                  <div className="text-4xl lg:text-5xl animate-float">
                     {banner.image}
                   </div>
                   <div className="space-y-1">
@@ -174,7 +172,7 @@ export const BannerSlider = () => {
                     <p className="text-lg lg:text-xl font-bold text-black">{banner.discount}</p>
                   </div>
                   <Button 
-                    className="bg-black text-yellow-500 hover:bg-gray-800 px-4 py-1 rounded-full font-semibold text-sm hover-lift"
+                    className="bg-black text-yellow-500 hover:bg-gray-800 px-4 py-1 rounded-full font-semibold text-sm hover-lift transition-all duration-300"
                   >
                     {banner.buttonText}
                   </Button>
@@ -201,9 +199,7 @@ export const BannerSlider = () => {
               <button
                 key={index}
                 onClick={() => setCurrentSlide2(index)}
-                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                  index === currentSlide2 ? 'bg-white' : 'bg-white/50'
-                }`}
+                className={`slider-indicator ${index === currentSlide2 ? 'active' : ''}`}
               />
             ))}
           </div>

@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, ShoppingBag, User, Menu, ChevronDown, Heart, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,6 +17,7 @@ export const Header = () => {
   const [cartCount, setCartCount] = useState(3);
   const [currency, setCurrency] = useState("₦");
   const [isDark, setIsDark] = useState(false);
+  const [isFixed, setIsFixed] = useState(false);
   const navigate = useNavigate();
 
   const currencies = [
@@ -37,14 +38,33 @@ export const Header = () => {
   const toggleTheme = () => {
     setIsDark(!isDark);
     document.documentElement.classList.toggle('dark');
+    // Store theme preference
+    localStorage.setItem('theme', !isDark ? 'dark' : 'light');
   };
+
+  useEffect(() => {
+    // Check for saved theme preference or default to light
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      setIsDark(true);
+      document.documentElement.classList.add('dark');
+    }
+
+    // Handle scroll for fixed header
+    const handleScroll = () => {
+      setIsFixed(window.scrollY > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
-      <header className="bg-gray-900 shadow-lg border-b border-yellow-500/20 sticky top-0 z-40">
-        <div className="container mx-auto px-4">
-          {/* Top bar */}
-          <div className="flex items-center justify-between py-2 text-sm text-gray-300 border-b border-gray-700">
+      <header className={`bg-gray-900 shadow-lg border-b border-yellow-500/20 z-50 transition-all duration-300 ${isFixed ? 'header-fixed header-mobile' : 'sticky top-0'}`}>
+        <div className="w-full px-4 mx-auto max-w-none">
+          {/* Top bar - Hidden on mobile when fixed */}
+          <div className={`items-center justify-between py-2 text-sm text-gray-300 border-b border-gray-700 ${isFixed ? 'hidden md:flex' : 'flex'}`}>
             <div className="hidden md:block">
               <span>Free shipping on orders over ₦20,000</span>
             </div>
@@ -53,7 +73,7 @@ export const Header = () => {
                 variant="ghost"
                 size="sm"
                 onClick={toggleTheme}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 icon-3d"
               >
                 {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
               </Button>
@@ -62,7 +82,7 @@ export const Header = () => {
                 <DropdownMenuTrigger className="flex items-center gap-1 hover:text-yellow-500 transition-colors duration-300">
                   {currency} <ChevronDown className="w-3 h-3" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-gray-800 border-gray-700">
+                <DropdownMenuContent className="bg-gray-800 border-gray-700 z-50">
                   {currencies.map((curr) => (
                     <DropdownMenuItem 
                       key={curr.symbol}
@@ -78,16 +98,16 @@ export const Header = () => {
           </div>
 
           {/* Main header */}
-          <div className="flex items-center justify-between py-4">
+          <div className="flex items-center justify-between py-3 md:py-4 gap-4">
             {/* Logo */}
-            <div className="flex items-center gap-2 cursor-pointer hover-lift" onClick={() => navigate('/')}>
-              <div className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center shadow-lg">
-                <span className="text-black font-bold text-lg">L</span>
+            <div className="flex items-center gap-2 cursor-pointer hover-lift animate-float" onClick={() => navigate('/')}>
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center shadow-lg animate-glow">
+                <span className="text-black font-bold text-sm md:text-lg">L</span>
               </div>
-              <h1 className="text-2xl font-bold text-white">Litzbella</h1>
+              <h1 className="text-lg md:text-2xl font-bold text-white hidden sm:block">Litzbella</h1>
             </div>
 
-            {/* Navigation - Desktop */}
+            {/* Navigation - Desktop only */}
             <nav className="hidden lg:flex items-center space-x-8">
               <button 
                 onClick={() => navigate('/')}
@@ -100,7 +120,7 @@ export const Header = () => {
                   Categories
                   <ChevronDown className="w-4 h-4" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-48 bg-gray-800 border-gray-700">
+                <DropdownMenuContent className="w-48 bg-gray-800 border-gray-700 z-50">
                   {categories.map((category) => (
                     <DropdownMenuItem 
                       key={category}
@@ -114,8 +134,8 @@ export const Header = () => {
               </DropdownMenu>
             </nav>
 
-            {/* Search bar */}
-            <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
+            {/* Search bar - Hidden on mobile when fixed */}
+            <div className={`items-center flex-1 max-w-md mx-4 ${isFixed ? 'hidden md:flex' : 'hidden md:flex'}`}>
               <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input 
@@ -126,25 +146,25 @@ export const Header = () => {
             </div>
 
             {/* Action buttons */}
-            <div className="flex items-center gap-2">            
+            <div className="flex items-center gap-1 md:gap-2">            
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => navigate('/wishlist')}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 relative transition-all duration-300 hover-lift animate-bounce-in"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 relative transition-all duration-300 hover-lift animate-bounce-in icon-3d"
               >
-                <Heart className="w-5 h-5" />
+                <Heart className="w-4 h-4 md:w-5 md:h-5" />
               </Button>
 
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => navigate('/cart')}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 relative transition-all duration-300 hover-lift animate-bounce-in"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 relative transition-all duration-300 hover-lift animate-bounce-in icon-3d"
               >
-                <ShoppingBag className="w-5 h-5" />
+                <ShoppingBag className="w-4 h-4 md:w-5 md:h-5" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-yellow-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold animate-bounce-in">
+                  <span className="absolute -top-1 -right-1 bg-yellow-500 text-black text-xs rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center font-bold animate-bounce-in">
                     {cartCount}
                   </span>
                 )}
@@ -154,18 +174,18 @@ export const Header = () => {
                 variant="ghost"
                 size="icon"
                 onClick={() => navigate('/login')}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 hover-lift animate-bounce-in"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 hover-lift animate-bounce-in icon-3d"
               >
-                <User className="w-5 h-5" />
+                <User className="w-4 h-4 md:w-5 md:h-5" />
               </Button>
 
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsMenuOpen(true)}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 hover-lift animate-bounce-in"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 hover-lift animate-bounce-in icon-3d"
               >
-                <Menu className="w-5 h-5" />
+                <Menu className="w-4 h-4 md:w-5 md:h-5" />
               </Button>
             </div>
           </div>
