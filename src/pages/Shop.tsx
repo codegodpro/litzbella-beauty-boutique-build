@@ -82,7 +82,7 @@ const Shop = () => {
             <Input
               type="search"
               placeholder="Search for products..."
-              className="pl-10 pr-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="pl-10 pr-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -92,6 +92,7 @@ const Shop = () => {
               variant="outline"
               size="icon"
               onClick={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
+              className="border-yellow-500 text-yellow-600 hover:bg-yellow-500 hover:text-black"
             >
               {viewMode === 'grid' ? <List className="h-4 w-4" /> : <Grid className="h-4 w-4" />}
             </Button>
@@ -99,6 +100,7 @@ const Shop = () => {
               variant="outline"
               size="sm"
               onClick={toggleFilters}
+              className="border-yellow-500 text-yellow-600 hover:bg-yellow-500 hover:text-black"
             >
               <Filter className="h-4 w-4 mr-2" />
               Filters
@@ -115,7 +117,7 @@ const Shop = () => {
           <div className={showFilters ? "md:col-span-3" : "md:col-span-4"}>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={product} viewMode={viewMode} />
               ))}
             </div>
           </div>

@@ -53,8 +53,12 @@ export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) =>
         className="group cursor-pointer bg-gray-900 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-yellow-500/20 hover-lift"
       >
         <div className="flex">
-          <div className="relative w-48 h-48 bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center text-4xl flex-shrink-0">
-            {product.image}
+          <div className="relative w-48 h-48 flex-shrink-0 overflow-hidden">
+            <img 
+              src={product.image} 
+              alt={product.name}
+              className="w-full h-full object-cover"
+            />
             {product.badge && (
               <div className="absolute top-4 left-4">
                 <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
@@ -132,8 +136,12 @@ export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) =>
       className="group cursor-pointer"
     >
       <div className="bg-gray-900 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2 border border-yellow-500/20 hover-lift relative">
-        <div className="relative aspect-square bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center text-6xl">
-          {product.image}
+        <div className="relative aspect-square overflow-hidden">
+          <img 
+            src={product.image} 
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
           {product.badge && (
             <div className="absolute top-4 left-4">
               <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
@@ -147,7 +155,6 @@ export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) =>
             </div>
           )}
           
-          {/* Action buttons positioned on the right side */}
           <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 animate-slide-up">
             <Button
               onClick={handleWishlist}
