@@ -43,15 +43,15 @@ export const Footer = () => {
               Enhancing natural beauty with premium quality products.
             </p>
             <div className="flex space-x-4">
-              <button className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
-                <span className="text-sm">f</span>
-              </button>
-              <button className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
-                <span className="text-sm">t</span>
-              </button>
-              <button className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
-                <span className="text-sm">i</span>
-              </button>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" className="w-4 h-4 filter invert" />
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/twitter.svg" alt="Twitter" className="w-4 h-4 filter invert" />
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" className="w-4 h-4 filter invert" />
+              </a>
             </div>
           </div>
 
@@ -100,9 +100,9 @@ export const Footer = () => {
           <div className="flex items-center gap-4">
             <span className="text-gray-400 text-sm">We accept:</span>
             <div className="flex gap-2">
-              <div className="w-8 h-5 bg-gray-700 rounded flex items-center justify-center text-xs">💳</div>
-              <div className="w-8 h-5 bg-gray-700 rounded flex items-center justify-center text-xs">💳</div>
-              <div className="w-8 h-5 bg-gray-700 rounded flex items-center justify-center text-xs">💳</div>
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/visa.svg" alt="Visa" className="w-8 h-5 filter invert opacity-70" />
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mastercard.svg" alt="Mastercard" className="w-8 h-5 filter invert opacity-70" />
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/paypal.svg" alt="PayPal" className="w-8 h-5 filter invert opacity-70" />
             </div>
           </div>
         </div>

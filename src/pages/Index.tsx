@@ -3,6 +3,8 @@ import { Header } from "@/components/Header";
 import { BannerSlider } from "@/components/BannerSlider";
 import { CategoryShowcase } from "@/components/CategoryShowcase";
 import { Footer } from "@/components/Footer";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 const Index = () => {
   return (
@@ -15,6 +17,8 @@ const Index = () => {
         <CategoryShowcase />
       </main>
       <Footer />
+      <FloatingWhatsApp />
+      <ScrollToTop />
     </div>
   );
 };
