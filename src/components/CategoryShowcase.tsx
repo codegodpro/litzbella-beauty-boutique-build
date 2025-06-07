@@ -2,111 +2,75 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Heart, ShoppingCart } from "lucide-react";
 
-// Example image URLs (replace with your real images or imports)
-const sampleImages = [
-  "https://via.placeholder.com/160x160?text=1",
-  "https://via.placeholder.com/160x160?text=2",
-  "https://via.placeholder.com/160x160?text=3",
-  "https://via.placeholder.com/160x160?text=4",
-  "https://via.placeholder.com/160x160?text=5",
+// Beauty product images from Unsplash
+const beautyImages = [
+  "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&h=300&fit=crop&crop=center", // makeup products
+  "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=300&h=300&fit=crop&crop=center", // lipstick
+  "https://images.unsplash.com/photo-1571875257727-256c39da42af?w=300&h=300&fit=crop&crop=center", // eyeshadow palette
+  "https://images.unsplash.com/photo-1583241800692-31d5c5ae44dc?w=300&h=300&fit=crop&crop=center", // skincare products
+  "https://images.unsplash.com/photo-1487804797779-1ab25fb4fdc2?w=300&h=300&fit=crop&crop=center", // makeup brushes
 ];
 
-// All categories, each with 5 products (image, discount, rating, etc.)
+// Litzbella beauty categories with products
 const categories = [
   {
-    name: "Skincare",
-    icon: "🧴",
-    description: "Face care essentials",
-    products: [
-      { name: "Touch screen Unisex LED Square Shaped Digital Watch", image: sampleImages[0], oldPrice: 60.0, price: 54.0, discount: 10, rating: 4.0 },
-      { name: "B39 Bluetooth 5.0 Headphone Ear Shape Wireless", image: sampleImages[1], oldPrice: 250.0, price: 125.0, discount: 50, rating: 4.0 },
-      { name: "New Ladies Fashionable Wrist Watch plus Extra Band", image: sampleImages[2], oldPrice: 150.0, price: 142.5, discount: 5, rating: 4.0 },
-      { name: "New Round Fast Track Chain Analog Sports Watch", image: sampleImages[3], oldPrice: 100.0, price: 90.0, discount: 10, rating: 4.0 },
-      { name: "Twill Gabardine Pant for Men", image: sampleImages[4], oldPrice: 1800.0, price: 1440.0, discount: 20, rating: 5.0 },
-    ],
-  },
-  {
-    name: "Makeup",
+    name: "Face",
     icon: "💄",
-    description: "Beauty cosmetics",
+    description: "Complete face makeup essentials",
     products: [
-      { name: "Classic Red Lipstick", image: sampleImages[0], oldPrice: 30.0, price: 27.0, discount: 10, rating: 4.5 },
-      { name: "Waterproof Mascara", image: sampleImages[1], oldPrice: 22.0, price: 19.8, discount: 10, rating: 4.2 },
-      { name: "Perfect Glow Foundation", image: sampleImages[2], oldPrice: 40.0, price: 36.0, discount: 10, rating: 4.3 },
-      { name: "Natural Blush Palette", image: sampleImages[3], oldPrice: 28.0, price: 25.2, discount: 10, rating: 4.4 },
-      { name: "Eyebrow Shaping Kit", image: sampleImages[4], oldPrice: 20.0, price: 18.0, discount: 10, rating: 4.1 },
+      { name: "Face Primer - Smooth Base", image: beautyImages[0], oldPrice: 25.0, price: 22.5, discount: 10, rating: 4.8 },
+      { name: "Setting Powder - Translucent", image: beautyImages[0], oldPrice: 30.0, price: 27.0, discount: 10, rating: 4.7 },
+      { name: "Full Coverage Foundation", image: beautyImages[0], oldPrice: 35.0, price: 31.5, discount: 10, rating: 4.9 },
+      { name: "Color Correcting Concealer", image: beautyImages[0], oldPrice: 20.0, price: 18.0, discount: 10, rating: 4.6 },
+      { name: "Blush & Contour Palette", image: beautyImages[0], oldPrice: 28.0, price: 25.2, discount: 10, rating: 4.8 },
     ],
   },
   {
-    name: "Fragrances",
-    icon: "🌸",
-    description: "Luxury perfumes",
+    name: "Eyes",
+    icon: "👁️",
+    description: "Eye makeup perfection",
     products: [
-      { name: "Luxury Perfume", image: sampleImages[0], oldPrice: 120.0, price: 108.0, discount: 10, rating: 4.7 },
-      { name: "Citrus Mist", image: sampleImages[1], oldPrice: 80.0, price: 72.0, discount: 10, rating: 4.2 },
-      { name: "Woody Blend", image: sampleImages[2], oldPrice: 90.0, price: 81.0, discount: 10, rating: 4.3 },
-      { name: "Floral Bouquet", image: sampleImages[3], oldPrice: 100.0, price: 90.0, discount: 10, rating: 4.5 },
-      { name: "Ocean Breeze", image: sampleImages[4], oldPrice: 85.0, price: 76.5, discount: 10, rating: 4.3 },
+      { name: "Precision Eyeliner - Black", image: beautyImages[2], oldPrice: 15.0, price: 13.5, discount: 10, rating: 4.7 },
+      { name: "Volume Mascara - Waterproof", image: beautyImages[2], oldPrice: 22.0, price: 19.8, discount: 10, rating: 4.8 },
+      { name: "Brow Definer Kit", image: beautyImages[2], oldPrice: 18.0, price: 16.2, discount: 10, rating: 4.6 },
+      { name: "Pro Eyeshadow Palette", image: beautyImages[2], oldPrice: 45.0, price: 40.5, discount: 10, rating: 4.9 },
+      { name: "Dramatic Lashes Set", image: beautyImages[2], oldPrice: 12.0, price: 10.8, discount: 10, rating: 4.5 },
     ],
   },
   {
-    name: "Hair Care",
+    name: "Lips",
+    icon: "💋",
+    description: "Luxurious lip collection",
+    products: [
+      { name: "Matte Lipstick - Ruby Red", image: beautyImages[1], oldPrice: 18.0, price: 16.2, discount: 10, rating: 4.8 },
+      { name: "High Shine Gloss", image: beautyImages[1], oldPrice: 14.0, price: 12.6, discount: 10, rating: 4.7 },
+      { name: "Velvet Matte Gloss", image: beautyImages[1], oldPrice: 16.0, price: 14.4, discount: 10, rating: 4.6 },
+      { name: "Precision Lip Liner", image: beautyImages[1], oldPrice: 10.0, price: 9.0, discount: 10, rating: 4.5 },
+      { name: "Lip Care Set", image: beautyImages[1], oldPrice: 25.0, price: 22.5, discount: 10, rating: 4.8 },
+    ],
+  },
+  {
+    name: "Skincare",
     icon: "✨",
-    description: "Hair treatments",
+    description: "Skincare and wellness products",
     products: [
-      { name: "Hair Repair Mask", image: sampleImages[0], oldPrice: 40.0, price: 36.0, discount: 10, rating: 4.6 },
-      { name: "Shampoo", image: sampleImages[1], oldPrice: 20.0, price: 18.0, discount: 10, rating: 4.4 },
-      { name: "Conditioner", image: sampleImages[2], oldPrice: 22.0, price: 19.8, discount: 10, rating: 4.5 },
-      { name: "Styling Gel", image: sampleImages[3], oldPrice: 15.0, price: 13.5, discount: 10, rating: 4.1 },
-      { name: "Hair Oil", image: sampleImages[4], oldPrice: 25.0, price: 22.5, discount: 10, rating: 4.7 },
+      { name: "Vitamin C Serum", image: beautyImages[3], oldPrice: 40.0, price: 36.0, discount: 10, rating: 4.9 },
+      { name: "Hydrating Face Mask", image: beautyImages[3], oldPrice: 25.0, price: 22.5, discount: 10, rating: 4.7 },
+      { name: "Anti-Aging Night Cream", image: beautyImages[3], oldPrice: 55.0, price: 49.5, discount: 10, rating: 4.8 },
+      { name: "Gentle Cleanser", image: beautyImages[3], oldPrice: 20.0, price: 18.0, discount: 10, rating: 4.6 },
+      { name: "SPF Moisturizer", image: beautyImages[3], oldPrice: 30.0, price: 27.0, discount: 10, rating: 4.8 },
     ],
   },
   {
-    name: "Body Care",
-    icon: "🛁",
-    description: "Body essentials",
-    products: [
-      { name: "Body Butter", image: sampleImages[0], oldPrice: 35.0, price: 31.5, discount: 10, rating: 4.6 },
-      { name: "Shower Gel", image: sampleImages[1], oldPrice: 18.0, price: 16.2, discount: 10, rating: 4.3 },
-      { name: "Body Scrub", image: sampleImages[2], oldPrice: 25.0, price: 22.5, discount: 10, rating: 4.4 },
-      { name: "Hand Cream", image: sampleImages[3], oldPrice: 15.0, price: 13.5, discount: 10, rating: 4.2 },
-      { name: "Foot Balm", image: sampleImages[4], oldPrice: 20.0, price: 18.0, discount: 10, rating: 4.3 },
-    ],
-  },
-  {
-    name: "Tools",
+    name: "Accessories",
     icon: "🖌️",
-    description: "Beauty tools",
+    description: "Professional beauty tools",
     products: [
-      { name: "Foundation Brush", image: sampleImages[0], oldPrice: 20.0, price: 18.0, discount: 10, rating: 4.6 },
-      { name: "Blender Sponge", image: sampleImages[1], oldPrice: 10.0, price: 9.0, discount: 10, rating: 4.5 },
-      { name: "Eyelash Curler", image: sampleImages[2], oldPrice: 15.0, price: 13.5, discount: 10, rating: 4.3 },
-      { name: "Tweezers", image: sampleImages[3], oldPrice: 8.0, price: 7.2, discount: 10, rating: 4.2 },
-      { name: "Mirror", image: sampleImages[4], oldPrice: 12.0, price: 10.8, discount: 10, rating: 4.1 },
-    ],
-  },
-  {
-    name: "Sets & Kits",
-    icon: "🎁",
-    description: "Gift collections",
-    products: [
-      { name: "Glow Kit", image: sampleImages[0], oldPrice: 60.0, price: 54.0, discount: 10, rating: 4.8 },
-      { name: "Travel Set", image: sampleImages[1], oldPrice: 50.0, price: 45.0, discount: 10, rating: 4.7 },
-      { name: "Mini Essentials", image: sampleImages[2], oldPrice: 30.0, price: 27.0, discount: 10, rating: 4.5 },
-      { name: "Spa Set", image: sampleImages[3], oldPrice: 70.0, price: 63.0, discount: 10, rating: 4.8 },
-      { name: "Holiday Bundle", image: sampleImages[4], oldPrice: 80.0, price: 72.0, discount: 10, rating: 4.9 },
-    ],
-  },
-  {
-    name: "New Arrivals",
-    icon: "⭐",
-    description: "Latest products",
-    products: [
-      { name: "Vitamin C Serum", image: sampleImages[0], oldPrice: 45.0, price: 40.5, discount: 10, rating: 4.6 },
-      { name: "Hydra Mist", image: sampleImages[1], oldPrice: 20.0, price: 18.0, discount: 10, rating: 4.4 },
-      { name: "Retinol Cream", image: sampleImages[2], oldPrice: 55.0, price: 49.5, discount: 10, rating: 4.7 },
-      { name: "Peptide Booster", image: sampleImages[3], oldPrice: 35.0, price: 31.5, discount: 10, rating: 4.5 },
-      { name: "SPF Moisturizer", image: sampleImages[4], oldPrice: 30.0, price: 27.0, discount: 10, rating: 4.6 },
+      { name: "Beauty Blender Set", image: beautyImages[4], oldPrice: 20.0, price: 18.0, discount: 10, rating: 4.7 },
+      { name: "Professional Brush Kit", image: beautyImages[4], oldPrice: 45.0, price: 40.5, discount: 10, rating: 4.8 },
+      { name: "Setting Spray - All Day", image: beautyImages[4], oldPrice: 22.0, price: 19.8, discount: 10, rating: 4.6 },
+      { name: "Makeup Storage Organizer", image: beautyImages[4], oldPrice: 35.0, price: 31.5, discount: 10, rating: 4.5 },
+      { name: "Travel Beauty Kit", image: beautyImages[4], oldPrice: 50.0, price: 45.0, discount: 10, rating: 4.8 },
     ],
   },
 ];
@@ -131,7 +95,7 @@ export const CategoryShowcase = () => {
         });
         return newPositions;
       });
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);
@@ -150,8 +114,8 @@ export const CategoryShowcase = () => {
     <section className="container mx-auto px-4 py-10">
       <div className="flex justify-center items-center mb-8">
         <div className="text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Offer Products</h2>
-          <p className="text-muted-foreground">Discover amazing deals across all categories</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Litzbella Collection</h2>
+          <p className="text-muted-foreground">Discover premium beauty essentials across all categories</p>
         </div>
       </div>
       
@@ -187,7 +151,7 @@ export const CategoryShowcase = () => {
                     {category.products.slice(start, end).map((prod, pidx) => (
                       <div
                         key={prod.name}
-                        className="bg-background rounded-xl border shadow-sm hover:shadow-2xl transition-all duration-500 relative flex flex-col items-center p-4 group hover:-translate-y-2 hover:border-primary/30 w-full"
+                        className="bg-background rounded-xl border shadow-sm hover:shadow-lg transition-all duration-500 relative flex flex-col items-center p-4 group hover:-translate-y-1 hover:border-primary/30 w-full"
                       >
                         {/* Discount tag */}
                         <span className="absolute top-3 left-3 bg-destructive text-xs font-bold text-destructive-foreground rounded-full px-2 py-1 z-10">
@@ -200,7 +164,7 @@ export const CategoryShowcase = () => {
                         </button>
                         
                         {/* Image */}
-                        <div className="aspect-square w-full max-w-[100px] mx-auto flex items-center justify-center mb-3 bg-muted/30 rounded-lg">
+                        <div className="aspect-square w-full max-w-[100px] mx-auto flex items-center justify-center mb-3 bg-muted/30 rounded-lg overflow-hidden">
                           <img
                             src={prod.image}
                             alt={prod.name}
