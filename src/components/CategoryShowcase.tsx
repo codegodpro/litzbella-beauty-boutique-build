@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Heart, ShoppingCart } from "lucide-react";
 
 // Example image URLs (replace with your real images or imports)
@@ -117,6 +118,24 @@ export const CategoryShowcase = () => {
     Object.fromEntries(categories.map((_, i) => [i, 0]))
   );
 
+  // Auto-swiper functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSliderPositions(prevPositions => {
+        const newPositions = { ...prevPositions };
+        categories.forEach((category, catIdx) => {
+          const max = Math.max(0, category.products.length - VISIBLE_PRODUCTS);
+          if (max > 0) {
+            newPositions[catIdx] = (prevPositions[catIdx] + 1) % (max + 1);
+          }
+        });
+        return newPositions;
+      });
+    }, 3000); // Auto-slide every 3 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   const slide = (catIdx: number, direction: "left" | "right") => {
     setSliderPositions(pos => {
       const max = Math.max(0, categories[catIdx].products.length - VISIBLE_PRODUCTS);
@@ -129,11 +148,14 @@ export const CategoryShowcase = () => {
 
   return (
     <section className="container mx-auto px-4 py-10">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Offer Products</h2>
-        <a href="#" className="text-indigo-500 font-medium text-sm hover:underline">View All</a>
+      <div className="flex justify-center items-center mb-8">
+        <div className="text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Offer Products</h2>
+          <p className="text-muted-foreground">Discover amazing deals across all categories</p>
+        </div>
       </div>
-      <div className="space-y-12">
+      
+      <div className="space-y-8">
         {categories.map((category, catIdx) => {
           const start = sliderPositions[catIdx];
           const end = start + VISIBLE_PRODUCTS;
@@ -141,71 +163,82 @@ export const CategoryShowcase = () => {
           const canSlideRight = end < category.products.length;
 
           return (
-            <div key={category.name}>
-              <div className="mb-3 flex items-center gap-3">
-                <span className="text-2xl">{category.icon}</span>
-                <span className="font-semibold text-lg">{category.name}</span>
-                <span className="ml-2 text-gray-400 text-sm italic">{category.description}</span>
+            <div key={category.name} className="bg-card rounded-2xl border shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+              <div className="mb-6 text-center">
+                <div className="flex items-center justify-center gap-3 mb-2">
+                  <span className="text-3xl">{category.icon}</span>
+                  <h3 className="font-bold text-2xl text-foreground">{category.name}</h3>
+                </div>
+                <p className="text-muted-foreground italic">{category.description}</p>
               </div>
-              <div className="flex items-center">
+              
+              <div className="flex items-center gap-4">
                 <button
                   onClick={() => slide(catIdx, "left")}
                   disabled={!canSlideLeft}
-                  className="p-1.5 rounded-full bg-gray-100 hover:bg-gray-200 transition disabled:opacity-30"
+                  className="p-2 rounded-full bg-primary/10 hover:bg-primary/20 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
                   aria-label="Slide Left"
                 >
-                  <ChevronLeft className="w-6 h-6" />
+                  <ChevronLeft className="w-6 h-6 text-primary" />
                 </button>
-                <div className="flex gap-6 flex-1 overflow-hidden">
+                
+                <div className="flex gap-4 flex-1 overflow-hidden justify-center">
                   {category.products.slice(start, end).map((prod, pidx) => (
                     <div
                       key={prod.name}
-                      className="bg-white rounded-2xl border border-gray-200 shadow hover:shadow-xl transition relative flex flex-col items-center min-w-[220px] max-w-[260px] p-4 pb-5"
+                      className="bg-background rounded-xl border shadow-sm hover:shadow-2xl transition-all duration-500 relative flex flex-col items-center min-w-[200px] max-w-[220px] p-4 group hover:-translate-y-2 hover:border-primary/30"
                     >
                       {/* Discount tag */}
-                      <span className="absolute top-4 left-4 bg-yellow-400 text-xs font-bold text-white rounded px-2 py-1 z-10">
-                        -{prod.discount} %
+                      <span className="absolute top-3 left-3 bg-destructive text-xs font-bold text-destructive-foreground rounded-full px-2 py-1 z-10">
+                        -{prod.discount}%
                       </span>
+                      
                       {/* Wishlist button */}
-                      <button className="absolute top-4 right-4 bg-white rounded-full p-2 shadow hover:bg-gray-200 transition z-10">
-                        <Heart className="w-5 h-5 text-purple-400" />
+                      <button className="absolute top-3 right-3 bg-background rounded-full p-2 shadow-md hover:bg-primary/10 transition-all duration-300 z-10 hover:scale-110">
+                        <Heart className="w-4 h-4 text-primary" />
                       </button>
+                      
                       {/* Image */}
-                      <div className="aspect-square w-full max-w-[120px] mx-auto flex items-center justify-center mb-3">
+                      <div className="aspect-square w-full max-w-[100px] mx-auto flex items-center justify-center mb-3 bg-muted/30 rounded-lg">
                         <img
                           src={prod.image}
                           alt={prod.name}
-                          className="w-full h-full object-cover rounded-xl"
+                          className="w-full h-full object-cover rounded-lg"
                         />
                       </div>
-                      {/* Product Title */}
-                      <div className="mt-1 text-[15px] text-center font-medium text-gray-900 leading-tight min-h-[38px] line-clamp-2">
+                      
+                      {/* Product Title - Centered */}
+                      <div className="mt-1 text-sm text-center font-medium text-foreground leading-tight min-h-[32px] line-clamp-2">
                         {prod.name}
                       </div>
-                      {/* Rating */}
+                      
+                      {/* Rating - Centered */}
                       <div className="flex items-center justify-center mt-2 mb-2">
-                        <span className="text-yellow-400 text-lg mr-1">★</span>
-                        <span className="text-gray-700 font-semibold text-sm">{prod.rating.toFixed(1)}</span>
+                        <span className="text-primary text-lg mr-1">★</span>
+                        <span className="text-muted-foreground font-semibold text-sm">{prod.rating.toFixed(1)}</span>
                       </div>
-                      {/* Prices */}
-                      <div className="flex flex-col items-center justify-center mt-1 mb-2">
-                        <span className="line-through text-gray-400 text-xs">{prod.oldPrice && prod.oldPrice.toFixed(3)}</span>
-                        <span className="text-indigo-900 font-bold text-lg">{prod.price.toFixed(3)}<span className="text-xs font-normal"> USD</span></span>
+                      
+                      {/* Prices - Centered */}
+                      <div className="flex flex-col items-center justify-center mt-1 mb-3">
+                        <span className="line-through text-muted-foreground text-xs">₦{prod.oldPrice && (prod.oldPrice * 1500).toFixed(0)}</span>
+                        <span className="text-primary font-bold text-lg">₦{(prod.price * 1500).toFixed(0)}</span>
                       </div>
+                      
                       {/* Cart button */}
-                      <button className="absolute bottom-4 right-4 bg-white border border-indigo-100 rounded-full p-2 shadow hover:bg-indigo-50 transition z-10">
-                        <ShoppingCart className="w-5 h-5 text-indigo-600" />
+                      <button className="absolute bottom-3 right-3 bg-primary text-primary-foreground rounded-full p-2 shadow-md hover:bg-primary/90 transition-all duration-300 z-10 hover:scale-110">
+                        <ShoppingCart className="w-4 h-4" />
                       </button>
                     </div>
                   ))}
                 </div>
+                
                 <button
                   onClick={() => slide(catIdx, "right")}
                   disabled={!canSlideRight}
-                  className="p-1.5 rounded-full bg-gray-100 hover:bg-gray-200 transition disabled:opacity-30"
+                  className="p-2 rounded-full bg-primary/10 hover:bg-primary/20 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
                   aria-label="Slide Right"
                 >
-                  <ChevronRight className="w-6 h-6" />
+                  <ChevronRight className="w-6 h-6 text-primary" />
                 </button>
               </div>
             </div>
