@@ -1,6 +1,6 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export const BannerSlider = () => {
   const [currentSlide1, setCurrentSlide1] = useState(0);
@@ -13,8 +13,8 @@ export const BannerSlider = () => {
       subtitle: "PREMIUM SKINCARE",
       discount: "30% OFF",
       buttonText: "Shop now!",
-      image: "🧴",
-      bgColor: "bg-gradient-to-r from-yellow-500 to-yellow-600"
+      image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=512&fit=crop",
+      bgGradient: "from-black/60 to-black/40"
     },
     {
       id: 2,
@@ -22,8 +22,8 @@ export const BannerSlider = () => {
       subtitle: "MAKEUP ESSENTIALS",
       discount: "25% OFF",
       buttonText: "Discover",
-      image: "💄",
-      bgColor: "bg-gradient-to-r from-purple-600 to-pink-600"
+      image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&h=512&fit=crop",
+      bgGradient: "from-purple-900/60 to-pink-900/40"
     },
     {
       id: 3,
@@ -31,8 +31,8 @@ export const BannerSlider = () => {
       subtitle: "PERFECT FOR ANY OCCASION",
       discount: "50% OFF",
       buttonText: "Gift",
-      image: "🎁",
-      bgColor: "bg-gradient-to-r from-pink-500 to-rose-500"
+      image: "https://images.unsplash.com/photo-1591375462077-800b6193cfb5?w=800&h=512&fit=crop",
+      bgGradient: "from-pink-900/60 to-rose-900/40"
     }
   ];
 
@@ -43,8 +43,8 @@ export const BannerSlider = () => {
       subtitle: "LIMITED TIME",
       discount: "15% OFF",
       buttonText: "Save Now",
-      image: "☀️",
-      bgColor: "bg-gradient-to-r from-cyan-500 to-blue-500"
+      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=512&fit=crop",
+      bgGradient: "from-cyan-900/60 to-blue-900/40"
     },
     {
       id: 2,
@@ -52,17 +52,17 @@ export const BannerSlider = () => {
       subtitle: "MOST LOVED",
       discount: "10% OFF",
       buttonText: "See Picks",
-      image: "🌟",
-      bgColor: "bg-gradient-to-r from-lime-500 to-green-500"
+      image: "https://images.unsplash.com/photo-1586495985586-bfa6a4b19e7f?w=400&h=512&fit=crop",
+      bgGradient: "from-green-900/60 to-emerald-900/40"
     },
     {
       id: 3,
       title: "FREE SHIPPING",
-      subtitle: "ORDERS OVER $50",
+      subtitle: "ORDERS OVER ₦30,000",
       discount: "No Code Needed",
       buttonText: "Shop Free",
-      image: "🚚",
-      bgColor: "bg-gradient-to-r from-orange-400 to-yellow-400"
+      image: "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=400&h=512&fit=crop",
+      bgGradient: "from-orange-900/60 to-amber-900/40"
     }
   ];
 
@@ -70,16 +70,8 @@ export const BannerSlider = () => {
     setCurrentSlide1((prev) => (prev + 1) % banners1.length);
   };
 
-  const prevSlide1 = () => {
-    setCurrentSlide1((prev) => (prev - 1 + banners1.length) % banners1.length);
-  };
-
   const nextSlide2 = () => {
     setCurrentSlide2((prev) => (prev + 1) % banners2.length);
-  };
-
-  const prevSlide2 = () => {
-    setCurrentSlide2((prev) => (prev - 1 + banners2.length) % banners2.length);
   };
 
   useEffect(() => {
@@ -104,48 +96,47 @@ export const BannerSlider = () => {
                 index < currentSlide1 ? '-translate-x-full' : 'translate-x-full'
               }`}
             >
-              <div className={`${banner.bgColor} h-full flex items-center justify-between px-8 lg:px-16`}>
-                <div className="text-white space-y-4 animate-slide-up">
-                  <div className="space-y-2">
-                    <p className="text-sm lg:text-base font-medium opacity-90">{banner.subtitle}</p>
-                    <h2 className="text-3xl lg:text-5xl font-bold">{banner.title}</h2>
-                    <p className="text-2xl lg:text-4xl font-bold text-black">{banner.discount}</p>
+              <div className="relative h-full">
+                <img 
+                  src={banner.image} 
+                  alt={banner.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className={`absolute inset-0 bg-gradient-to-r ${banner.bgGradient}`}></div>
+                <div className="absolute inset-0 flex items-center justify-center px-8 lg:px-16">
+                  <div className="text-white space-y-4 animate-slide-up text-center">
+                    <div className="space-y-2">
+                      <p className="text-sm lg:text-base font-medium opacity-90">{banner.subtitle}</p>
+                      <h2 className="text-3xl lg:text-5xl font-bold">{banner.title}</h2>
+                      <p className="text-2xl lg:text-4xl font-bold text-yellow-400">{banner.discount}</p>
+                    </div>
+                    <Button 
+                      className="bg-yellow-500 text-black hover:bg-yellow-400 px-6 py-2 rounded-full font-semibold hover-lift"
+                    >
+                      {banner.buttonText}
+                    </Button>
                   </div>
-                  <Button 
-                    className="bg-black text-yellow-500 hover:bg-gray-800 px-6 py-2 rounded-full font-semibold hover-lift"
-                  >
-                    {banner.buttonText}
-                  </Button>
-                </div>
-                <div className="text-6xl lg:text-8xl animate-bounce-in">
-                  {banner.image}
                 </div>
               </div>
             </div>
           ))}
-          
-          <button
-            onClick={prevSlide1}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-300 hover-lift"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={nextSlide1}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-300 hover-lift"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
 
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+          {/* Creative indicators */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3">
             {banners1.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide1(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentSlide1 ? 'bg-white' : 'bg-white/50'
+                className={`relative transition-all duration-300 ${
+                  index === currentSlide1 ? 'w-8 h-3' : 'w-3 h-3'
                 }`}
-              />
+              >
+                <div className={`w-full h-full rounded-full transition-all duration-300 ${
+                  index === currentSlide1 
+                    ? 'bg-yellow-500 shadow-lg shadow-yellow-500/50' 
+                    : 'bg-white/50 hover:bg-white/70'
+                }`}></div>
+              </button>
             ))}
           </div>
         </div>
@@ -162,48 +153,47 @@ export const BannerSlider = () => {
                 index < currentSlide2 ? '-translate-x-full' : 'translate-x-full'
               }`}
             >
-              <div className={`${banner.bgColor} h-full flex flex-col items-center justify-center px-4 text-center`}>
-                <div className="text-white space-y-3 animate-slide-up">
-                  <div className="text-4xl lg:text-5xl animate-bounce-in">
-                    {banner.image}
+              <div className="relative h-full">
+                <img 
+                  src={banner.image} 
+                  alt={banner.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className={`absolute inset-0 bg-gradient-to-r ${banner.bgGradient}`}></div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
+                  <div className="text-white space-y-3 animate-slide-up">
+                    <div className="space-y-1">
+                      <p className="text-xs font-medium opacity-90">{banner.subtitle}</p>
+                      <h2 className="text-lg lg:text-2xl font-bold">{banner.title}</h2>
+                      <p className="text-lg lg:text-xl font-bold text-yellow-400">{banner.discount}</p>
+                    </div>
+                    <Button 
+                      className="bg-yellow-500 text-black hover:bg-yellow-400 px-4 py-1 rounded-full font-semibold text-sm hover-lift"
+                    >
+                      {banner.buttonText}
+                    </Button>
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-xs font-medium opacity-90">{banner.subtitle}</p>
-                    <h2 className="text-lg lg:text-2xl font-bold">{banner.title}</h2>
-                    <p className="text-lg lg:text-xl font-bold text-black">{banner.discount}</p>
-                  </div>
-                  <Button 
-                    className="bg-black text-yellow-500 hover:bg-gray-800 px-4 py-1 rounded-full font-semibold text-sm hover-lift"
-                  >
-                    {banner.buttonText}
-                  </Button>
                 </div>
               </div>
             </div>
           ))}
-          
-          <button
-            onClick={prevSlide2}
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-1 rounded-full transition-all duration-300 hover-lift"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-          <button
-            onClick={nextSlide2}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-1 rounded-full transition-all duration-300 hover-lift"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
 
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-1">
+          {/* Creative indicators */}
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-2">
             {banners2.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide2(index)}
-                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                  index === currentSlide2 ? 'bg-white' : 'bg-white/50'
+                className={`relative transition-all duration-300 ${
+                  index === currentSlide2 ? 'w-6 h-2' : 'w-2 h-2'
                 }`}
-              />
+              >
+                <div className={`w-full h-full rounded-full transition-all duration-300 ${
+                  index === currentSlide2 
+                    ? 'bg-yellow-500 shadow-lg shadow-yellow-500/50' 
+                    : 'bg-white/50 hover:bg-white/70'
+                }`}></div>
+              </button>
             ))}
           </div>
         </div>

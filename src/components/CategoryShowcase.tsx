@@ -131,7 +131,7 @@ export const CategoryShowcase = () => {
         });
         return newPositions;
       });
-    }, 3000); // Auto-slide every 3 seconds
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
@@ -163,13 +163,13 @@ export const CategoryShowcase = () => {
           const canSlideRight = end < category.products.length;
 
           return (
-            <div key={category.name} className="bg-card rounded-2xl border shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <div key={category.name} className="bg-card rounded-2xl border shadow-lg p-6 transition-all duration-300">
               <div className="mb-6 text-center">
                 <div className="flex items-center justify-center gap-3 mb-2">
                   <span className="text-3xl">{category.icon}</span>
-                  <h3 className="font-bold text-2xl text-foreground">{category.name}</h3>
+                  <h3 className="font-bold text-2xl text-foreground text-center">{category.name}</h3>
                 </div>
-                <p className="text-muted-foreground italic">{category.description}</p>
+                <p className="text-muted-foreground italic text-center">{category.description}</p>
               </div>
               
               <div className="flex items-center gap-4">
@@ -182,54 +182,56 @@ export const CategoryShowcase = () => {
                   <ChevronLeft className="w-6 h-6 text-primary" />
                 </button>
                 
-                <div className="flex gap-4 flex-1 overflow-hidden justify-center">
-                  {category.products.slice(start, end).map((prod, pidx) => (
-                    <div
-                      key={prod.name}
-                      className="bg-background rounded-xl border shadow-sm hover:shadow-2xl transition-all duration-500 relative flex flex-col items-center min-w-[200px] max-w-[220px] p-4 group hover:-translate-y-2 hover:border-primary/30"
-                    >
-                      {/* Discount tag */}
-                      <span className="absolute top-3 left-3 bg-destructive text-xs font-bold text-destructive-foreground rounded-full px-2 py-1 z-10">
-                        -{prod.discount}%
-                      </span>
-                      
-                      {/* Wishlist button */}
-                      <button className="absolute top-3 right-3 bg-background rounded-full p-2 shadow-md hover:bg-primary/10 transition-all duration-300 z-10 hover:scale-110">
-                        <Heart className="w-4 h-4 text-primary" />
-                      </button>
-                      
-                      {/* Image */}
-                      <div className="aspect-square w-full max-w-[100px] mx-auto flex items-center justify-center mb-3 bg-muted/30 rounded-lg">
-                        <img
-                          src={prod.image}
-                          alt={prod.name}
-                          className="w-full h-full object-cover rounded-lg"
-                        />
+                <div className="flex-1 overflow-hidden">
+                  <div className="grid grid-cols-4 gap-4">
+                    {category.products.slice(start, end).map((prod, pidx) => (
+                      <div
+                        key={prod.name}
+                        className="bg-background rounded-xl border shadow-sm hover:shadow-2xl transition-all duration-500 relative flex flex-col items-center p-4 group hover:-translate-y-2 hover:border-primary/30 w-full"
+                      >
+                        {/* Discount tag */}
+                        <span className="absolute top-3 left-3 bg-destructive text-xs font-bold text-destructive-foreground rounded-full px-2 py-1 z-10">
+                          -{prod.discount}%
+                        </span>
+                        
+                        {/* Wishlist button */}
+                        <button className="absolute top-3 right-3 bg-background rounded-full p-2 shadow-md hover:bg-primary/10 transition-all duration-300 z-10 hover:scale-110">
+                          <Heart className="w-4 h-4 text-primary" />
+                        </button>
+                        
+                        {/* Image */}
+                        <div className="aspect-square w-full max-w-[100px] mx-auto flex items-center justify-center mb-3 bg-muted/30 rounded-lg">
+                          <img
+                            src={prod.image}
+                            alt={prod.name}
+                            className="w-full h-full object-cover rounded-lg"
+                          />
+                        </div>
+                        
+                        {/* Product Title - Centered */}
+                        <div className="mt-1 text-sm text-center font-medium text-foreground leading-tight min-h-[32px] line-clamp-2">
+                          {prod.name}
+                        </div>
+                        
+                        {/* Rating - Centered */}
+                        <div className="flex items-center justify-center mt-2 mb-2">
+                          <span className="text-primary text-lg mr-1">★</span>
+                          <span className="text-muted-foreground font-semibold text-sm">{prod.rating.toFixed(1)}</span>
+                        </div>
+                        
+                        {/* Prices - Centered */}
+                        <div className="flex flex-col items-center justify-center mt-1 mb-3">
+                          <span className="line-through text-muted-foreground text-xs">₦{prod.oldPrice && (prod.oldPrice * 1500).toFixed(0)}</span>
+                          <span className="text-primary font-bold text-lg">₦{(prod.price * 1500).toFixed(0)}</span>
+                        </div>
+                        
+                        {/* Cart button */}
+                        <button className="absolute bottom-3 right-3 bg-primary text-primary-foreground rounded-full p-2 shadow-md hover:bg-primary/90 transition-all duration-300 z-10 hover:scale-110">
+                          <ShoppingCart className="w-4 h-4" />
+                        </button>
                       </div>
-                      
-                      {/* Product Title - Centered */}
-                      <div className="mt-1 text-sm text-center font-medium text-foreground leading-tight min-h-[32px] line-clamp-2">
-                        {prod.name}
-                      </div>
-                      
-                      {/* Rating - Centered */}
-                      <div className="flex items-center justify-center mt-2 mb-2">
-                        <span className="text-primary text-lg mr-1">★</span>
-                        <span className="text-muted-foreground font-semibold text-sm">{prod.rating.toFixed(1)}</span>
-                      </div>
-                      
-                      {/* Prices - Centered */}
-                      <div className="flex flex-col items-center justify-center mt-1 mb-3">
-                        <span className="line-through text-muted-foreground text-xs">₦{prod.oldPrice && (prod.oldPrice * 1500).toFixed(0)}</span>
-                        <span className="text-primary font-bold text-lg">₦{(prod.price * 1500).toFixed(0)}</span>
-                      </div>
-                      
-                      {/* Cart button */}
-                      <button className="absolute bottom-3 right-3 bg-primary text-primary-foreground rounded-full p-2 shadow-md hover:bg-primary/90 transition-all duration-300 z-10 hover:scale-110">
-                        <ShoppingCart className="w-4 h-4" />
-                      </button>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
                 
                 <button

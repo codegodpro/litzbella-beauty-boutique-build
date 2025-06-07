@@ -80,23 +80,23 @@ export const Header = () => {
           {/* Main header */}
           <div className="flex items-center justify-between py-4">
             {/* Logo */}
-            <div className="flex items-center gap-2 cursor-pointer hover-lift" onClick={() => navigate('/')}>
+            <div className="flex items-center gap-3 cursor-pointer hover:shadow-lg hover:shadow-yellow-500/30 transition-all duration-300 hover:-translate-y-1" onClick={() => navigate('/')}>
               <div className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center shadow-lg">
                 <span className="text-black font-bold text-lg">L</span>
               </div>
-              <h1 className="text-2xl font-bold text-white">Litzbella</h1>
+              <h1 className="text-2xl font-bold text-white hover:text-yellow-400 transition-colors duration-300">Litzbella</h1>
             </div>
 
             {/* Navigation - Desktop */}
             <nav className="hidden lg:flex items-center space-x-8">
               <button 
                 onClick={() => navigate('/')}
-                className="text-gray-300 hover:text-yellow-500 transition-all duration-300 font-medium hover-lift"
+                className="text-gray-300 hover:text-yellow-500 hover:shadow-lg hover:shadow-yellow-500/30 transition-all duration-300 font-medium hover:-translate-y-1 px-3 py-2 rounded-lg"
               >
                 Home
               </button>
               <DropdownMenu>
-                <DropdownMenuTrigger className="text-gray-300 hover:text-yellow-500 transition-all duration-300 font-medium flex items-center gap-1 hover-lift">
+                <DropdownMenuTrigger className="text-gray-300 hover:text-yellow-500 hover:shadow-lg hover:shadow-yellow-500/30 transition-all duration-300 font-medium flex items-center gap-1 hover:-translate-y-1 px-3 py-2 rounded-lg">
                   Categories
                   <ChevronDown className="w-4 h-4" />
                 </DropdownMenuTrigger>
@@ -125,13 +125,14 @@ export const Header = () => {
               </div>
             </div>
 
-            {/* Action buttons */}
-            <div className="flex items-center gap-2">            
+            {/* Action buttons with 3D effect */}
+            <div className="flex items-center gap-3">            
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => navigate('/wishlist')}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 relative transition-all duration-300 hover-lift animate-bounce-in"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 relative transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/40 hover:-translate-y-1 transform-gpu bg-gradient-to-b from-gray-700 to-gray-800 border border-gray-600 rounded-lg"
+                style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}
               >
                 <Heart className="w-5 h-5" />
               </Button>
@@ -140,7 +141,8 @@ export const Header = () => {
                 variant="ghost"
                 size="icon"
                 onClick={() => navigate('/cart')}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 relative transition-all duration-300 hover-lift animate-bounce-in"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 relative transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/40 hover:-translate-y-1 transform-gpu bg-gradient-to-b from-gray-700 to-gray-800 border border-gray-600 rounded-lg"
+                style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}
               >
                 <ShoppingBag className="w-5 h-5" />
                 {cartCount > 0 && (
@@ -154,7 +156,8 @@ export const Header = () => {
                 variant="ghost"
                 size="icon"
                 onClick={() => navigate('/login')}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 hover-lift animate-bounce-in"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/40 hover:-translate-y-1 transform-gpu bg-gradient-to-b from-gray-700 to-gray-800 border border-gray-600 rounded-lg"
+                style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}
               >
                 <User className="w-5 h-5" />
               </Button>
@@ -163,7 +166,8 @@ export const Header = () => {
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsMenuOpen(true)}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 hover-lift animate-bounce-in"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/40 hover:-translate-y-1 transform-gpu bg-gradient-to-b from-gray-700 to-gray-800 border border-gray-600 rounded-lg"
+                style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}
               >
                 <Menu className="w-5 h-5" />
               </Button>

@@ -1,5 +1,8 @@
 
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { Heart, ShoppingBag, Share2, Minus, Plus } from "lucide-react";
+import { Header } from "@/components/Header";
 import { ProductReviews } from "@/components/ProductReviews";
 import { RelatedProducts } from "@/components/RelatedProducts";
 
@@ -45,7 +48,7 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -191,10 +194,10 @@ const ProductDetail = () => {
         </div>
         
         {/* Product Reviews */}
-        <ProductReviews productId={product.id} />
+        <ProductReviews productId={Number(product.id)} />
         
         {/* Related Products */}
-        <RelatedProducts category={product.category} />
+        <RelatedProducts />
       </main>
     </div>
   );
