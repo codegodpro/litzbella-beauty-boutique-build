@@ -84,10 +84,10 @@ export const BannerSlider = () => {
   }, []);
 
   return (
-    <section className="w-full flex gap-4">
-      {/* First Slider - Larger width */}
-      <div className="flex-[2] min-w-0 relative">
-        <div className="h-[512px] w-full overflow-hidden rounded-2xl relative shadow-2xl">
+    <section className="w-full flex flex-col lg:flex-row gap-4">
+      {/* First Slider - Stacked on mobile, larger width on desktop */}
+      <div className="w-full lg:flex-[2] lg:min-w-0 relative">
+        <div className="h-[300px] sm:h-[400px] lg:h-[512px] w-full overflow-hidden rounded-2xl relative shadow-2xl">
           {banners1.map((banner, index) => (
             <div
               key={banner.id}
@@ -103,15 +103,15 @@ export const BannerSlider = () => {
                   className="w-full h-full object-cover"
                 />
                 <div className={`absolute inset-0 bg-gradient-to-r ${banner.bgGradient}`}></div>
-                <div className="absolute inset-0 flex items-center justify-center px-8 lg:px-16">
-                  <div className="text-white space-y-4 animate-slide-up text-center">
-                    <div className="space-y-2">
-                      <p className="text-sm lg:text-base font-medium opacity-90">{banner.subtitle}</p>
-                      <h2 className="text-3xl lg:text-5xl font-bold">{banner.title}</h2>
-                      <p className="text-2xl lg:text-4xl font-bold text-yellow-400">{banner.discount}</p>
+                <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-8 lg:px-16">
+                  <div className="text-white space-y-2 sm:space-y-4 animate-slide-up text-center">
+                    <div className="space-y-1 sm:space-y-2">
+                      <p className="text-xs sm:text-sm lg:text-base font-medium opacity-90">{banner.subtitle}</p>
+                      <h2 className="text-xl sm:text-3xl lg:text-5xl font-bold">{banner.title}</h2>
+                      <p className="text-lg sm:text-2xl lg:text-4xl font-bold text-yellow-400">{banner.discount}</p>
                     </div>
                     <Button 
-                      className="bg-yellow-500 text-black hover:bg-yellow-400 px-6 py-2 rounded-full font-semibold hover-lift"
+                      className="bg-yellow-500 text-black hover:bg-yellow-400 px-4 sm:px-6 py-2 rounded-full font-semibold hover-lift text-sm sm:text-base"
                     >
                       {banner.buttonText}
                     </Button>
@@ -122,13 +122,13 @@ export const BannerSlider = () => {
           ))}
 
           {/* Creative indicators */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3">
+          <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 sm:space-x-3">
             {banners1.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide1(index)}
                 className={`relative transition-all duration-300 ${
-                  index === currentSlide1 ? 'w-8 h-3' : 'w-3 h-3'
+                  index === currentSlide1 ? 'w-6 sm:w-8 h-2 sm:h-3' : 'w-2 sm:w-3 h-2 sm:h-3'
                 }`}
               >
                 <div className={`w-full h-full rounded-full transition-all duration-300 ${
@@ -142,9 +142,9 @@ export const BannerSlider = () => {
         </div>
       </div>
 
-      {/* Second Slider - Smaller width */}
-      <div className="flex-1 min-w-0 relative">
-        <div className="h-[512px] w-full overflow-hidden rounded-2xl relative shadow-2xl">
+      {/* Second Slider - Stacked on mobile, smaller width on desktop */}
+      <div className="w-full lg:flex-1 lg:min-w-0 relative">
+        <div className="h-[300px] sm:h-[400px] lg:h-[512px] w-full overflow-hidden rounded-2xl relative shadow-2xl">
           {banners2.map((banner, index) => (
             <div
               key={banner.id}
@@ -160,15 +160,15 @@ export const BannerSlider = () => {
                   className="w-full h-full object-cover"
                 />
                 <div className={`absolute inset-0 bg-gradient-to-r ${banner.bgGradient}`}></div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
-                  <div className="text-white space-y-3 animate-slide-up">
+                <div className="absolute inset-0 flex flex-col items-center justify-center px-2 sm:px-4 text-center">
+                  <div className="text-white space-y-2 sm:space-y-3 animate-slide-up">
                     <div className="space-y-1">
                       <p className="text-xs font-medium opacity-90">{banner.subtitle}</p>
-                      <h2 className="text-lg lg:text-2xl font-bold">{banner.title}</h2>
-                      <p className="text-lg lg:text-xl font-bold text-yellow-400">{banner.discount}</p>
+                      <h2 className="text-base sm:text-lg lg:text-2xl font-bold">{banner.title}</h2>
+                      <p className="text-sm sm:text-lg lg:text-xl font-bold text-yellow-400">{banner.discount}</p>
                     </div>
                     <Button 
-                      className="bg-yellow-500 text-black hover:bg-yellow-400 px-4 py-1 rounded-full font-semibold text-sm hover-lift"
+                      className="bg-yellow-500 text-black hover:bg-yellow-400 px-3 sm:px-4 py-1 rounded-full font-semibold text-xs sm:text-sm hover-lift"
                     >
                       {banner.buttonText}
                     </Button>
@@ -179,13 +179,13 @@ export const BannerSlider = () => {
           ))}
 
           {/* Creative indicators */}
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-2">
+          <div className="absolute bottom-1 sm:bottom-2 left-1/2 -translate-x-1/2 flex space-x-1 sm:space-x-2">
             {banners2.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide2(index)}
                 className={`relative transition-all duration-300 ${
-                  index === currentSlide2 ? 'w-6 h-2' : 'w-2 h-2'
+                  index === currentSlide2 ? 'w-4 sm:w-6 h-1.5 sm:h-2' : 'w-1.5 sm:w-2 h-1.5 sm:h-2'
                 }`}
               >
                 <div className={`w-full h-full rounded-full transition-all duration-300 ${

@@ -1,212 +1,158 @@
-
-import { Button } from "@/components/ui/button";
-import { Heart, ShoppingBag, Eye } from "lucide-react";
+import { useState } from "react";
+import { Star, Heart, Eye, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
-  badge?: string;
-  rating: number;
-  reviews: number;
-  category: string;
-}
+import { Button } from "@/components/ui/button";
 
 interface ProductCardProps {
-  product: Product;
-  viewMode?: 'grid' | 'list';
+  product: {
+    id: number;
+    name: string;
+    price: number;
+    oldPrice?: number;
+    image: string;
+    category?: string;
+    rating?: number;
+    reviews?: number;
+    discount?: number;
+  };
 }
 
-export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) => {
+export const ProductCard = ({ product }: ProductCardProps) => {
   const navigate = useNavigate();
-
-  const handleProductClick = () => {
-    navigate(`/product/${product.id}`);
-  };
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    console.log('Adding to cart:', product.name);
-  };
-
-  const handleWishlist = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    console.log('Adding to wishlist:', product.name);
-  };
-
-  const handleQuickView = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    console.log('Quick view:', product.name);
-  };
+  const [isWishlisted, setIsWishlisted] = useState(false);
 
   const formatPrice = (price: number) => {
     return `₦${price.toLocaleString()}`;
   };
 
-  if (viewMode === 'list') {
-    return (
-      <div 
-        onClick={handleProductClick}
-        className="group cursor-pointer bg-gray-900 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-yellow-500/20 hover-lift"
-      >
-        <div className="flex">
-          <div className="relative w-48 h-48 flex-shrink-0 overflow-hidden">
-            <img 
-              src={product.image} 
-              alt={product.name}
-              className="w-full h-full object-cover"
-            />
-            {product.badge && (
-              <div className="absolute top-4 left-4">
-                <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                  product.badge === 'Sale' ? 'bg-red-500 text-white' :
-                  product.badge === 'New' ? 'bg-green-500 text-white' :
-                  product.badge === 'Best Seller' ? 'bg-yellow-500 text-black' :
-                  'bg-blue-500 text-white'
-                }`}>
-                  {product.badge}
-                </span>
-              </div>
-            )}
-          </div>
-
-          <div className="flex-1 p-6 flex justify-between">
-            <div className="flex-1">
-              <h3 className="font-semibold text-lg text-white mb-2 group-hover:text-yellow-500 transition-colors">
-                {product.name}
-              </h3>
-              
-              <div className="flex items-center gap-2 mb-3">
-                <div className="flex text-yellow-400">
-                  {"★".repeat(Math.floor(product.rating))}
-                </div>
-                <span className="text-sm text-gray-400">
-                  {product.rating} ({product.reviews})
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-2xl font-bold text-yellow-500">
-                  {formatPrice(product.price)}
-                </span>
-                {product.originalPrice && (
-                  <span className="text-lg text-gray-500 line-through">
-                    {formatPrice(product.originalPrice)}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Button
-                onClick={handleWishlist}
-                variant="outline"
-                size="icon"
-                className="rounded-full bg-gray-800 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black hover-lift"
-              >
-                <Heart className="w-4 h-4" />
-              </Button>
-              <Button
-                onClick={handleQuickView}
-                variant="outline"
-                size="icon"
-                className="rounded-full bg-gray-800 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black hover-lift"
-              >
-                <Eye className="w-4 h-4" />
-              </Button>
-              <Button
-                onClick={handleAddToCart}
-                className="bg-yellow-500 hover:bg-yellow-400 text-black rounded-full hover-lift"
-              >
-                <ShoppingBag className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const discountPercentage = product.oldPrice 
+    ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
+    : 0;
 
   return (
-    <div 
-      onClick={handleProductClick}
-      className="group cursor-pointer"
-    >
-      <div className="bg-gray-900 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2 border border-yellow-500/20 hover-lift relative">
-        <div className="relative aspect-square overflow-hidden">
-          <img 
-            src={product.image} 
-            alt={product.name}
-            className="w-full h-full object-cover"
-          />
-          {product.badge && (
-            <div className="absolute top-4 left-4">
-              <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                product.badge === 'Sale' ? 'bg-red-500 text-white' :
-                product.badge === 'New' ? 'bg-green-500 text-white' :
-                product.badge === 'Best Seller' ? 'bg-yellow-500 text-black' :
-                'bg-blue-500 text-white'
-              }`}>
-                {product.badge}
-              </span>
-            </div>
+    <div className="group bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-yellow-300 transform hover:-translate-y-1">
+      {/* Product Image */}
+      <div className="relative overflow-hidden bg-gray-50">
+        <img 
+          src={product.image} 
+          alt={product.name}
+          className="w-full h-48 sm:h-56 md:h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        
+        {/* Badges */}
+        <div className="absolute top-2 sm:top-3 left-2 sm:left-3 flex flex-col gap-1 sm:gap-2">
+          {discountPercentage > 0 && (
+            <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+              -{discountPercentage}%
+            </span>
           )}
-          
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 animate-slide-up">
-            <Button
-              onClick={handleWishlist}
-              variant="outline"
-              size="icon"
-              className="rounded-full bg-white/90 border-yellow-500 text-yellow-600 hover:bg-yellow-500 hover:text-black shadow-lg hover-lift"
-            >
-              <Heart className="w-4 h-4" />
-            </Button>
-            <Button
-              onClick={handleQuickView}
-              variant="outline"
-              size="icon"
-              className="rounded-full bg-white/90 border-yellow-500 text-yellow-600 hover:bg-yellow-500 hover:text-black shadow-lg hover-lift"
-            >
-              <Eye className="w-4 h-4" />
-            </Button>
-            <Button
-              onClick={handleAddToCart}
-              className="rounded-full bg-yellow-500 hover:bg-yellow-400 text-black shadow-lg hover-lift"
-              size="icon"
-            >
-              <ShoppingBag className="w-4 h-4" />
-            </Button>
-          </div>
+          {product.category && (
+            <span className="bg-yellow-500 text-black px-2 py-1 rounded-full text-xs font-medium capitalize">
+              {product.category}
+            </span>
+          )}
         </div>
 
-        <div className="p-6">
-          <h3 className="font-semibold text-white mb-2 group-hover:text-yellow-500 transition-colors">
+        {/* Wishlist Button */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsWishlisted(!isWishlisted);
+          }}
+          className="absolute top-2 sm:top-3 right-2 sm:right-3 p-2 bg-white/80 hover:bg-white rounded-full shadow-md transition-all duration-300 hover:scale-110"
+        >
+          <Heart 
+            className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300 ${
+              isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600 hover:text-red-500'
+            }`}
+          />
+        </button>
+
+        {/* Quick Action Buttons */}
+        <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 right-2 sm:right-3 flex gap-1 sm:gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <Button
+            size="sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/product/${product.id}`);
+            }}
+            className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold text-xs sm:text-sm py-1 sm:py-2"
+          >
+            <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+            View
+          </Button>
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={(e) => {
+              e.stopPropagation();
+              // Add to cart logic here
+            }}
+            className="flex-1 bg-gray-800 hover:bg-gray-900 text-white font-semibold text-xs sm:text-sm py-1 sm:py-2"
+          >
+            <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+            Cart
+          </Button>
+        </div>
+      </div>
+
+      {/* Product Info */}
+      <div className="p-3 sm:p-4 space-y-2 sm:space-y-3">
+        <div className="space-y-1 sm:space-y-2">
+          <h3 
+            className="font-semibold text-gray-800 line-clamp-2 cursor-pointer hover:text-yellow-600 transition-colors duration-300 text-sm sm:text-base"
+            onClick={() => navigate(`/product/${product.id}`)}
+          >
             {product.name}
           </h3>
           
-          <div className="flex items-center gap-2 mb-3">
-            <div className="flex text-yellow-400">
-              {"★".repeat(Math.floor(product.rating))}
+          {/* Rating */}
+          {product.rating && (
+            <div className="flex items-center gap-1 sm:gap-2">
+              <div className="flex items-center">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star
+                    key={star}
+                    className={`w-3 h-3 sm:w-4 sm:h-4 ${
+                      star <= Math.floor(product.rating!)
+                        ? 'fill-yellow-400 text-yellow-400'
+                        : 'text-gray-300'
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-xs sm:text-sm text-gray-600">
+                {product.rating} ({product.reviews} reviews)
+              </span>
             </div>
-            <span className="text-sm text-gray-400">
-              {product.rating} ({product.reviews})
-            </span>
-          </div>
+          )}
+        </div>
 
+        {/* Price */}
+        <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-yellow-500">
+            <span className="text-lg sm:text-xl font-bold text-gray-900">
               {formatPrice(product.price)}
             </span>
-            {product.originalPrice && (
-              <span className="text-lg text-gray-500 line-through">
-                {formatPrice(product.originalPrice)}
+            {product.oldPrice && (
+              <span className="text-sm sm:text-base text-gray-500 line-through">
+                {formatPrice(product.oldPrice)}
               </span>
             )}
           </div>
         </div>
+
+        {/* Add to Cart Button */}
+        <Button
+          onClick={(e) => {
+            e.stopPropagation();
+            // Add to cart logic here
+          }}
+          className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold transition-all duration-300 hover:shadow-lg text-sm sm:text-base py-2"
+        >
+          <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+          Add to Cart
+        </Button>
       </div>
     </div>
   );

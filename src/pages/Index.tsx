@@ -10,8 +10,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background transition-colors duration-300">
       <Header />
-      <main className="space-y-8">
-        <div className="container mx-auto px-4 py-8">
+      <main className="space-y-4 sm:space-y-8">
+        <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
           <BannerSlider />
         </div>
         <CategoryShowcase />

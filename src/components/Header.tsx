@@ -42,32 +42,32 @@ export const Header = () => {
   return (
     <>
       <header className="bg-gray-900 shadow-lg border-b border-yellow-500/20 sticky top-0 z-40">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-2 sm:px-4">
           {/* Top bar */}
-          <div className="flex items-center justify-between py-2 text-sm text-gray-300 border-b border-gray-700">
-            <div className="hidden md:block">
+          <div className="flex items-center justify-between py-2 text-xs sm:text-sm text-gray-300 border-b border-gray-700">
+            <div className="hidden sm:block">
               <span>Free shipping on orders over ₦20,000</span>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={toggleTheme}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 p-1 sm:p-2"
               >
-                {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                {isDark ? <Sun className="w-3 h-3 sm:w-4 sm:h-4" /> : <Moon className="w-3 h-3 sm:w-4 sm:h-4" />}
               </Button>
-              <button className="hover:text-yellow-500 transition-colors duration-300">EN</button>
+              <button className="hover:text-yellow-500 transition-colors duration-300 text-xs sm:text-sm">EN</button>
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 hover:text-yellow-500 transition-colors duration-300">
-                  {currency} <ChevronDown className="w-3 h-3" />
+                <DropdownMenuTrigger className="flex items-center gap-1 hover:text-yellow-500 transition-colors duration-300 text-xs sm:text-sm">
+                  {currency} <ChevronDown className="w-2 h-2 sm:w-3 sm:h-3" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-gray-800 border-gray-700">
                   {currencies.map((curr) => (
                     <DropdownMenuItem 
                       key={curr.symbol}
                       onClick={() => setCurrency(curr.symbol)}
-                      className="cursor-pointer text-gray-300 hover:text-yellow-500 hover:bg-gray-700"
+                      className="cursor-pointer text-gray-300 hover:text-yellow-500 hover:bg-gray-700 text-xs sm:text-sm"
                     >
                       {curr.symbol} {curr.name}
                     </DropdownMenuItem>
@@ -78,13 +78,13 @@ export const Header = () => {
           </div>
 
           {/* Main header */}
-          <div className="flex items-center justify-between py-4">
+          <div className="flex items-center justify-between py-2 sm:py-4">
             {/* Logo */}
-            <div className="flex items-center gap-3 cursor-pointer hover:shadow-lg hover:shadow-yellow-500/30 transition-all duration-300 hover:-translate-y-1" onClick={() => navigate('/')}>
-              <div className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center shadow-lg">
-                <span className="text-black font-bold text-lg">L</span>
+            <div className="flex items-center gap-2 sm:gap-3 cursor-pointer hover:shadow-lg hover:shadow-yellow-500/30 transition-all duration-300 hover:-translate-y-1" onClick={() => navigate('/')}>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center shadow-lg">
+                <span className="text-black font-bold text-sm sm:text-lg">L</span>
               </div>
-              <h1 className="text-2xl font-bold text-white hover:text-yellow-400 transition-colors duration-300">Litzbella</h1>
+              <h1 className="text-lg sm:text-2xl font-bold text-white hover:text-yellow-400 transition-colors duration-300">Litzbella</h1>
             </div>
 
             {/* Navigation - Desktop */}
@@ -114,8 +114,8 @@ export const Header = () => {
               </DropdownMenu>
             </nav>
 
-            {/* Search bar */}
-            <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
+            {/* Search bar - Hidden on mobile, visible on tablet+ */}
+            <div className="hidden md:flex items-center flex-1 max-w-md mx-4 lg:mx-8">
               <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input 
@@ -125,28 +125,28 @@ export const Header = () => {
               </div>
             </div>
 
-            {/* Action buttons with 3D effect */}
-            <div className="flex items-center gap-3">            
+            {/* Action buttons with responsive sizing */}
+            <div className="flex items-center gap-1 sm:gap-3">            
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => navigate('/wishlist')}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 relative transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/40 hover:-translate-y-1 transform-gpu bg-gradient-to-b from-gray-700 to-gray-800 border border-gray-600 rounded-lg"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 relative transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/40 hover:-translate-y-1 transform-gpu bg-gradient-to-b from-gray-700 to-gray-800 border border-gray-600 rounded-lg w-8 h-8 sm:w-10 sm:h-10"
                 style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}
               >
-                <Heart className="w-5 h-5" />
+                <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
 
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => navigate('/cart')}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 relative transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/40 hover:-translate-y-1 transform-gpu bg-gradient-to-b from-gray-700 to-gray-800 border border-gray-600 rounded-lg"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 relative transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/40 hover:-translate-y-1 transform-gpu bg-gradient-to-b from-gray-700 to-gray-800 border border-gray-600 rounded-lg w-8 h-8 sm:w-10 sm:h-10"
                 style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}
               >
-                <ShoppingBag className="w-5 h-5" />
+                <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-yellow-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold animate-bounce-in">
+                  <span className="absolute -top-1 -right-1 bg-yellow-500 text-black text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-bold animate-bounce-in">
                     {cartCount}
                   </span>
                 )}
@@ -156,21 +156,32 @@ export const Header = () => {
                 variant="ghost"
                 size="icon"
                 onClick={() => navigate('/login')}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/40 hover:-translate-y-1 transform-gpu bg-gradient-to-b from-gray-700 to-gray-800 border border-gray-600 rounded-lg"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/40 hover:-translate-y-1 transform-gpu bg-gradient-to-b from-gray-700 to-gray-800 border border-gray-600 rounded-lg w-8 h-8 sm:w-10 sm:h-10"
                 style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}
               >
-                <User className="w-5 h-5" />
+                <User className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
 
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsMenuOpen(true)}
-                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/40 hover:-translate-y-1 transform-gpu bg-gradient-to-b from-gray-700 to-gray-800 border border-gray-600 rounded-lg"
+                className="text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/40 hover:-translate-y-1 transform-gpu bg-gradient-to-b from-gray-700 to-gray-800 border border-gray-600 rounded-lg w-8 h-8 sm:w-10 sm:h-10"
                 style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}
               >
-                <Menu className="w-5 h-5" />
+                <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
+            </div>
+          </div>
+
+          {/* Mobile search bar */}
+          <div className="md:hidden pb-2">
+            <div className="relative w-full">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Input 
+                placeholder="Search for Products" 
+                className="pl-10 bg-gray-800 border-gray-600 focus:border-yellow-500 text-white placeholder-gray-400"
+              />
             </div>
           </div>
         </div>
