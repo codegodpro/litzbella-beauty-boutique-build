@@ -14,7 +14,7 @@ export const BannerSlider = () => {
       subtitle: "PREMIUM SKINCARE",
       discount: "30% OFF",
       buttonText: "Shop now!",
-      image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=512&fit=crop",
+      image: "./public/Slider-1-Img-1.png",
       bgGradient: "from-black/60 to-black/40"
     },
     {
@@ -23,7 +23,7 @@ export const BannerSlider = () => {
       subtitle: "MAKEUP ESSENTIALS",
       discount: "25% OFF",
       buttonText: "Discover",
-      image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&h=512&fit=crop",
+      image: "./public/Slider-1-Img-2.png",
       bgGradient: "from-purple-900/60 to-pink-900/40"
     },
     {
@@ -32,7 +32,7 @@ export const BannerSlider = () => {
       subtitle: "PERFECT FOR ANY OCCASION",
       discount: "50% OFF",
       buttonText: "Gift",
-      image: "https://images.unsplash.com/photo-1591375462077-800b6193cfb5?w=800&h=512&fit=crop",
+      image: "./public/Slider-3-Img-1.png",
       bgGradient: "from-pink-900/60 to-rose-900/40"
     }
   ];
@@ -44,7 +44,7 @@ export const BannerSlider = () => {
       subtitle: "LIMITED TIME",
       discount: "15% OFF",
       buttonText: "Save Now",
-      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=512&fit=crop",
+      image: "./public/Products-01.1.jpg",
       bgGradient: "from-cyan-900/60 to-blue-900/40"
     },
     {
@@ -53,7 +53,7 @@ export const BannerSlider = () => {
       subtitle: "MOST LOVED",
       discount: "10% OFF",
       buttonText: "See Picks",
-      image: "https://images.unsplash.com/photo-1586495985586-bfa6a4b19e7f?w=400&h=512&fit=crop",
+      image: "./public/Products-02.1.jpg",
       bgGradient: "from-green-900/60 to-emerald-900/40"
     },
     {
@@ -62,7 +62,7 @@ export const BannerSlider = () => {
       subtitle: "ORDERS OVER ₦30,000",
       discount: "No Code Needed",
       buttonText: "Shop Free",
-      image: "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=400&h=512&fit=crop",
+      image: "./public/Products-03.1.jpg",
       bgGradient: "from-orange-900/60 to-amber-900/40"
     }
   ];
