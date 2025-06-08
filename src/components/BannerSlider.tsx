@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export const BannerSlider = () => {
   const [currentSlide1, setCurrentSlide1] = useState(0);
@@ -74,6 +75,14 @@ export const BannerSlider = () => {
     setCurrentSlide2((prev) => (prev + 1) % banners2.length);
   };
 
+  const prevSlide1 = () => {
+    setCurrentSlide1((prev) => (prev - 1 + banners1.length) % banners1.length);
+  };
+
+  const prevSlide2 = () => {
+    setCurrentSlide2((prev) => (prev - 1 + banners2.length) % banners2.length);
+  };
+
   useEffect(() => {
     const timer1 = setInterval(nextSlide1, 5000);
     const timer2 = setInterval(nextSlide2, 6000);
@@ -85,7 +94,7 @@ export const BannerSlider = () => {
 
   return (
     <section className="w-full flex flex-col lg:flex-row gap-4">
-      {/* First Slider - Stacked on mobile, larger width on desktop */}
+      {/* First Slider - Always visible */}
       <div className="w-full lg:flex-[2] lg:min-w-0 relative">
         <div className="h-[300px] sm:h-[400px] lg:h-[512px] w-full overflow-hidden rounded-2xl relative shadow-2xl">
           {banners1.map((banner, index) => (
@@ -107,7 +116,7 @@ export const BannerSlider = () => {
                   <div className="text-white space-y-2 sm:space-y-4 animate-slide-up text-center">
                     <div className="space-y-1 sm:space-y-2">
                       <p className="text-xs sm:text-sm lg:text-base font-medium opacity-90">{banner.subtitle}</p>
-                      <h2 className="text-xl sm:text-3xl lg:text-5xl font-bold">{banner.title}</h2>
+                      <h2 className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-tight leading-tight">{banner.title}</h2>
                       <p className="text-lg sm:text-2xl lg:text-4xl font-bold text-yellow-400">{banner.discount}</p>
                     </div>
                     <Button 
@@ -121,7 +130,23 @@ export const BannerSlider = () => {
             </div>
           ))}
 
-          {/* Creative indicators */}
+          {/* Navigation buttons with rounded corners and icons */}
+          <button
+            onClick={prevSlide1}
+            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm p-2 sm:p-3 rounded transition-all duration-300 z-10"
+            style={{ borderRadius: '4px' }}
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          </button>
+          <button
+            onClick={nextSlide1}
+            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm p-2 sm:p-3 rounded transition-all duration-300 z-10"
+            style={{ borderRadius: '4px' }}
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          </button>
+
+          {/* Indicators */}
           <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 sm:space-x-3">
             {banners1.map((_, index) => (
               <button
@@ -142,8 +167,8 @@ export const BannerSlider = () => {
         </div>
       </div>
 
-      {/* Second Slider - Stacked on mobile, smaller width on desktop */}
-      <div className="w-full lg:flex-1 lg:min-w-0 relative">
+      {/* Second Slider - Hidden on mobile and smaller screens */}
+      <div className="hidden lg:block w-full lg:flex-1 lg:min-w-0 relative">
         <div className="h-[300px] sm:h-[400px] lg:h-[512px] w-full overflow-hidden rounded-2xl relative shadow-2xl">
           {banners2.map((banner, index) => (
             <div
@@ -178,7 +203,23 @@ export const BannerSlider = () => {
             </div>
           ))}
 
-          {/* Creative indicators */}
+          {/* Navigation buttons with rounded corners and icons */}
+          <button
+            onClick={prevSlide2}
+            className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm p-1.5 sm:p-2 rounded transition-all duration-300 z-10"
+            style={{ borderRadius: '4px' }}
+          >
+            <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+          </button>
+          <button
+            onClick={nextSlide2}
+            className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm p-1.5 sm:p-2 rounded transition-all duration-300 z-10"
+            style={{ borderRadius: '4px' }}
+          >
+            <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+          </button>
+
+          {/* Indicators */}
           <div className="absolute bottom-1 sm:bottom-2 left-1/2 -translate-x-1/2 flex space-x-1 sm:space-x-2">
             {banners2.map((_, index) => (
               <button
