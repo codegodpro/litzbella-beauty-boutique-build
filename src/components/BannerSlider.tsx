@@ -10,11 +10,11 @@ export const BannerSlider = () => {
   const banners1 = [
     {
       id: 1,
-      title: "LUXURY COLLECTION",
+      title: "LITZBELLA COSMETIC STORE",
       subtitle: "PREMIUM SKINCARE",
       discount: "30% OFF",
       buttonText: "Shop now!",
-      image: "./public/Slider-1-Img-1.png",
+      image: "../public/Slider-1-Img-1.png",
       bgGradient: "from-black/60 to-black/40"
     },
     {
@@ -23,7 +23,7 @@ export const BannerSlider = () => {
       subtitle: "MAKEUP ESSENTIALS",
       discount: "25% OFF",
       buttonText: "Discover",
-      image: "./public/Slider-1-Img-2.png",
+      image: "../public/Slider-1-Img-2.png",
       bgGradient: "from-purple-900/60 to-pink-900/40"
     },
     {
@@ -32,7 +32,7 @@ export const BannerSlider = () => {
       subtitle: "PERFECT FOR ANY OCCASION",
       discount: "50% OFF",
       buttonText: "Gift",
-      image: "./public/Slider-3-Img-1.png",
+      image: "../public/Slider-3-Img-1.png",
       bgGradient: "from-pink-900/60 to-rose-900/40"
     }
   ];
@@ -44,7 +44,7 @@ export const BannerSlider = () => {
       subtitle: "LIMITED TIME",
       discount: "15% OFF",
       buttonText: "Save Now",
-      image: "./public/Products-01.1.jpg",
+      image: "../public/Products-01.1.jpg",
       bgGradient: "from-cyan-900/60 to-blue-900/40"
     },
     {
@@ -53,7 +53,7 @@ export const BannerSlider = () => {
       subtitle: "MOST LOVED",
       discount: "10% OFF",
       buttonText: "See Picks",
-      image: "./public/Products-02.1.jpg",
+      image: "../public/Products-02.1.jpg",
       bgGradient: "from-green-900/60 to-emerald-900/40"
     },
     {
@@ -62,7 +62,7 @@ export const BannerSlider = () => {
       subtitle: "ORDERS OVER ₦30,000",
       discount: "No Code Needed",
       buttonText: "Shop Free",
-      image: "./public/Products-03.1.jpg",
+      image: "../public/Products-03.1.jpg",
       bgGradient: "from-orange-900/60 to-amber-900/40"
     }
   ];
