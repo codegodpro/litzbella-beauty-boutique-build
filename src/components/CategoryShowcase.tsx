@@ -81,6 +81,28 @@ export const CategoryShowcase = () => {
   const [sliderPositions, setSliderPositions] = useState<{ [index: number]: number }>(
     Object.fromEntries(categories.map((_, i) => [i, 0]))
   );
+  
+  // Responsive visible products count
+  const getVisibleProducts = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 640) return 1; // sm
+      if (window.innerWidth < 768) return 2; // md
+      if (window.innerWidth < 1024) return 3; // lg
+      return 4; // xl and above
+    }
+    return 4;
+  };
+
+  const [visibleProducts, setVisibleProducts] = useState(getVisibleProducts());
+
+  useEffect(() => {
+    const handleResize = () => {
+      setVisibleProducts(getVisibleProducts());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Auto-swiper functionality
   useEffect(() => {
@@ -88,7 +110,7 @@ export const CategoryShowcase = () => {
       setSliderPositions(prevPositions => {
         const newPositions = { ...prevPositions };
         categories.forEach((category, catIdx) => {
-          const max = Math.max(0, category.products.length - VISIBLE_PRODUCTS);
+          const max = Math.max(0, category.products.length - visibleProducts);
           if (max > 0) {
             newPositions[catIdx] = (prevPositions[catIdx] + 1) % (max + 1);
           }
@@ -98,11 +120,11 @@ export const CategoryShowcase = () => {
     }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [visibleProducts]);
 
   const slide = (catIdx: number, direction: "left" | "right") => {
     setSliderPositions(pos => {
-      const max = Math.max(0, categories[catIdx].products.length - VISIBLE_PRODUCTS);
+      const max = Math.max(0, categories[catIdx].products.length - visibleProducts);
       let next = pos[catIdx] + (direction === "left" ? -1 : 1);
       if (next < 0) next = 0;
       if (next > max) next = max;
@@ -111,60 +133,68 @@ export const CategoryShowcase = () => {
   };
 
   return (
-    <section className="container mx-auto px-4 py-10">
-      <div className="flex justify-center items-center mb-8">
+    <section className="container mx-auto px-2 sm:px-4 py-6 sm:py-10">
+      <div className="flex justify-center items-center mb-6 sm:mb-8">
         <div className="text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Litzbella Collection</h2>
-          <p className="text-muted-foreground">Discover premium beauty essentials across all categories</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2">Litzbella Collection</h2>
+          <p className="text-sm sm:text-base text-muted-foreground">Discover premium beauty essentials across all categories</p>
         </div>
       </div>
       
-      <div className="space-y-8">
+      <div className="space-y-6 sm:space-y-8">
         {categories.map((category, catIdx) => {
           const start = sliderPositions[catIdx];
-          const end = start + VISIBLE_PRODUCTS;
+          const end = start + visibleProducts;
           const canSlideLeft = start > 0;
           const canSlideRight = end < category.products.length;
 
           return (
-            <div key={category.name} className="bg-card rounded-2xl border shadow-lg p-6 transition-all duration-300">
-              <div className="mb-6 text-center">
-                <div className="flex items-center justify-center gap-3 mb-2">
-                  <span className="text-3xl">{category.icon}</span>
-                  <h3 className="font-bold text-2xl text-foreground text-center">{category.name}</h3>
+            <div key={category.name} className="bg-card rounded-xl sm:rounded-2xl border shadow-lg p-3 sm:p-6 transition-all duration-300">
+              <div className="mb-4 sm:mb-6 text-center">
+                <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
+                  <span className="text-2xl sm:text-3xl">{category.icon}</span>
+                  <h3 className="font-bold text-xl sm:text-2xl text-foreground text-center">{category.name}</h3>
                 </div>
-                <p className="text-muted-foreground italic text-center">{category.description}</p>
+                <p className="text-sm sm:text-base text-muted-foreground italic text-center">{category.description}</p>
               </div>
               
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 sm:gap-4">
                 <button
                   onClick={() => slide(catIdx, "left")}
                   disabled={!canSlideLeft}
-                  className="p-2 rounded-full bg-primary/10 hover:bg-primary/20 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
+                  className="hidden sm:flex p-2 rounded-full bg-primary/10 hover:bg-primary/20 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
                   aria-label="Slide Left"
                 >
-                  <ChevronLeft className="w-6 h-6 text-primary" />
+                  <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                 </button>
                 
                 <div className="flex-1 overflow-hidden">
-                  <div className="grid grid-cols-4 gap-4">
+                  <div className={`grid gap-3 sm:gap-4 ${
+                    visibleProducts === 1 
+                      ? 'grid-cols-1' 
+                      : visibleProducts === 2 
+                        ? 'grid-cols-2' 
+                        : visibleProducts === 3 
+                          ? 'grid-cols-3' 
+                          : 'grid-cols-4'
+                  }`}>
                     {category.products.slice(start, end).map((prod, pidx) => (
                       <div
                         key={prod.name}
-                        className="bg-background rounded-xl border shadow-sm hover:shadow-lg transition-all duration-500 relative flex flex-col items-center p-4 group hover:-translate-y-1 hover:border-primary/30 w-full"
+                        className="bg-background rounded-lg sm:rounded-xl border shadow-sm hover:shadow-lg transition-all duration-500 relative flex flex-col items-center p-3 sm:p-4 group hover:-translate-y-1 hover:border-primary/30 w-full"
                       >
                         {/* Discount tag */}
-                        <span className="absolute top-3 left-3 bg-destructive text-xs font-bold text-destructive-foreground rounded-full px-2 py-1 z-10">
+                        <span className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-destructive text-xs font-bold text-destructive-foreground rounded-full px-2 py-1 z-10">
                           -{prod.discount}%
                         </span>
                         
                         {/* Wishlist button */}
-                        <button className="absolute top-3 right-3 bg-background rounded-full p-2 shadow-md hover:bg-primary/10 transition-all duration-300 z-10 hover:scale-110">
-                          <Heart className="w-4 h-4 text-primary" />
+                        <button className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-background rounded-full p-1.5 sm:p-2 shadow-md hover:bg-primary/10 transition-all duration-300 z-10 hover:scale-110">
+                          <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-primary" />
                         </button>
                         
                         {/* Image */}
-                        <div className="aspect-square w-full max-w-[100px] mx-auto flex items-center justify-center mb-3 bg-muted/30 rounded-lg overflow-hidden">
+                        <div className="aspect-square w-full max-w-[80px] sm:max-w-[100px] mx-auto flex items-center justify-center mb-2 sm:mb-3 bg-muted/30 rounded-lg overflow-hidden">
                           <img
                             src={prod.image}
                             alt={prod.name}
@@ -173,25 +203,25 @@ export const CategoryShowcase = () => {
                         </div>
                         
                         {/* Product Title - Centered */}
-                        <div className="mt-1 text-sm text-center font-medium text-foreground leading-tight min-h-[32px] line-clamp-2">
+                        <div className="mt-1 text-xs sm:text-sm text-center font-medium text-foreground leading-tight min-h-[24px] sm:min-h-[32px] line-clamp-2">
                           {prod.name}
                         </div>
                         
                         {/* Rating - Centered */}
-                        <div className="flex items-center justify-center mt-2 mb-2">
-                          <span className="text-primary text-lg mr-1">★</span>
-                          <span className="text-muted-foreground font-semibold text-sm">{prod.rating.toFixed(1)}</span>
+                        <div className="flex items-center justify-center mt-1 sm:mt-2 mb-1 sm:mb-2">
+                          <span className="text-primary text-base sm:text-lg mr-1">★</span>
+                          <span className="text-muted-foreground font-semibold text-xs sm:text-sm">{prod.rating.toFixed(1)}</span>
                         </div>
                         
                         {/* Prices - Centered */}
-                        <div className="flex flex-col items-center justify-center mt-1 mb-3">
+                        <div className="flex flex-col items-center justify-center mt-1 mb-2 sm:mb-3">
                           <span className="line-through text-muted-foreground text-xs">₦{prod.oldPrice && (prod.oldPrice * 1500).toFixed(0)}</span>
-                          <span className="text-primary font-bold text-lg">₦{(prod.price * 1500).toFixed(0)}</span>
+                          <span className="text-primary font-bold text-base sm:text-lg">₦{(prod.price * 1500).toFixed(0)}</span>
                         </div>
                         
                         {/* Cart button */}
-                        <button className="absolute bottom-3 right-3 bg-primary text-primary-foreground rounded-full p-2 shadow-md hover:bg-primary/90 transition-all duration-300 z-10 hover:scale-110">
-                          <ShoppingCart className="w-4 h-4" />
+                        <button className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3 bg-primary text-primary-foreground rounded-full p-1.5 sm:p-2 shadow-md hover:bg-primary/90 transition-all duration-300 z-10 hover:scale-110">
+                          <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4" />
                         </button>
                       </div>
                     ))}
@@ -201,11 +231,24 @@ export const CategoryShowcase = () => {
                 <button
                   onClick={() => slide(catIdx, "right")}
                   disabled={!canSlideRight}
-                  className="p-2 rounded-full bg-primary/10 hover:bg-primary/20 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
+                  className="hidden sm:flex p-2 rounded-full bg-primary/10 hover:bg-primary/20 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
                   aria-label="Slide Right"
                 >
-                  <ChevronRight className="w-6 h-6 text-primary" />
+                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                 </button>
+              </div>
+              
+              {/* Mobile navigation dots */}
+              <div className="flex sm:hidden justify-center mt-4 space-x-2">
+                {Array.from({ length: Math.max(0, category.products.length - visibleProducts) + 1 }).map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setSliderPositions(pos => ({ ...pos, [catIdx]: idx }))}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                      sliderPositions[catIdx] === idx ? 'bg-primary' : 'bg-muted-foreground/30'
+                    }`}
+                  />
+                ))}
               </div>
             </div>
           );
