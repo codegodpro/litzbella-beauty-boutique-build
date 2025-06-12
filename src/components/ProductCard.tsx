@@ -1,7 +1,10 @@
+
 import { useState } from "react";
 import { Star, Heart, Eye, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useShoppingContext } from "@/contexts/ShoppingContext";
+import { useToast } from "@/hooks/use-toast";
 
 interface ProductCardProps {
   product: {
@@ -20,6 +23,8 @@ interface ProductCardProps {
 export const ProductCard = ({ product }: ProductCardProps) => {
   const navigate = useNavigate();
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const { addToCart } = useShoppingContext();
+  const { toast } = useToast();
 
   const formatPrice = (price: number) => {
     return `₦${price.toLocaleString()}`;
@@ -28,6 +33,16 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const discountPercentage = product.oldPrice 
     ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
     : 0;
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addToCart(product);
+    toast({
+      title: "Added to Cart",
+      description: `${product.name} has been added to your cart.`,
+      duration: 2000,
+    });
+  };
 
   return (
     <div className="group bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-yellow-300 transform hover:-translate-y-1">
@@ -58,6 +73,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           onClick={(e) => {
             e.stopPropagation();
             setIsWishlisted(!isWishlisted);
+            toast({
+              title: isWishlisted ? "Removed from Wishlist" : "Added to Wishlist",
+              description: `${product.name} has been ${isWishlisted ? 'removed from' : 'added to'} your wishlist.`,
+              duration: 2000,
+            });
           }}
           className="absolute top-2 sm:top-3 right-2 sm:right-3 p-2 bg-white/80 hover:bg-white rounded-full shadow-md transition-all duration-300 hover:scale-110"
         >
@@ -84,10 +104,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <Button
             size="sm"
             variant="secondary"
-            onClick={(e) => {
-              e.stopPropagation();
-              // Add to cart logic here
-            }}
+            onClick={handleAddToCart}
             className="flex-1 bg-gray-800 hover:bg-gray-900 text-white font-semibold text-xs sm:text-sm py-1 sm:py-2"
           >
             <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
@@ -144,10 +161,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
         {/* Add to Cart Button */}
         <Button
-          onClick={(e) => {
-            e.stopPropagation();
-            // Add to cart logic here
-          }}
+          onClick={handleAddToCart}
           className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold transition-all duration-300 hover:shadow-lg text-sm sm:text-base py-2"
         >
           <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />

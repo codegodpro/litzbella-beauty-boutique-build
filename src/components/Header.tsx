@@ -1,9 +1,9 @@
-
 import { useState } from "react";
 import { Search, ShoppingBag, User, Menu, ChevronDown, Heart, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
+import { useShoppingContext } from "@/contexts/ShoppingContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,10 +14,10 @@ import { FullViewportMenu } from "./FullViewportMenu";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(3);
   const [currency, setCurrency] = useState("₦");
   const [isDark, setIsDark] = useState(false);
   const navigate = useNavigate();
+  const { getTotalItems } = useShoppingContext();
 
   const currencies = [
     { symbol: "$", name: "Dollar", rate: 0.0013 },
@@ -81,9 +81,11 @@ export const Header = () => {
           <div className="flex items-center justify-between py-2 sm:py-4">
             {/* Logo */}
             <div className="flex items-center gap-2 sm:gap-3 cursor-pointer hover:shadow-lg hover:shadow-yellow-500/30 transition-all duration-300 hover:-translate-y-1" onClick={() => navigate('/')}>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center shadow-lg">
-                <span className="text-black font-bold text-sm sm:text-lg">L</span>
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="Litzbella Logo" 
+                className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg shadow-lg"
+              />
               <h1 className="text-lg sm:text-2xl font-bold text-white hover:text-yellow-400 transition-colors duration-300">Litzbella</h1>
             </div>
 
@@ -145,9 +147,9 @@ export const Header = () => {
                 style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}
               >
                 <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
-                {cartCount > 0 && (
+                {getTotalItems() > 0 && (
                   <span className="absolute -top-1 -right-1 bg-yellow-500 text-black text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-bold animate-bounce-in">
-                    {cartCount}
+                    {getTotalItems()}
                   </span>
                 )}
               </Button>

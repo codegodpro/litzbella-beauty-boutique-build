@@ -1,57 +1,20 @@
 
-import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useShoppingContext } from "@/contexts/ShoppingContext";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Hydrating Face Serum",
-      price: 45.99,
-      image: "🧴",
-      quantity: 2,
-      inStock: true
-    },
-    {
-      id: 2,
-      name: "Matte Lipstick Set",
-      price: 29.99,
-      image: "💄",
-      quantity: 1,
-      inStock: true
-    },
-    {
-      id: 3,
-      name: "Anti-Aging Night Cream",
-      price: 89.99,
-      image: "🫙",
-      quantity: 1,
-      inStock: false
-    }
-  ]);
+  const { cartItems, updateQuantity, removeItem, getTotalPrice } = useShoppingContext();
 
-  const updateQuantity = (id: number, newQuantity: number) => {
-    if (newQuantity === 0) {
-      removeItem(id);
-      return;
-    }
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
+  const formatPrice = (price: number) => {
+    return `₦${price.toLocaleString()}`;
   };
 
-  const removeItem = (id: number) => {
-    setCartItems(items => items.filter(item => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-  const shipping = subtotal > 50 ? 0 : 9.99;
+  const subtotal = getTotalPrice();
+  const shipping = subtotal > 50000 ? 0 : 5000;
   const tax = subtotal * 0.08;
   const total = subtotal + shipping + tax;
 
@@ -102,17 +65,18 @@ const Cart = () => {
               <div key={item.id} className="bg-white rounded-2xl p-6 border border-gray-200">
                 <div className="flex items-center gap-6">
                   {/* Product Image */}
-                  <div className="w-24 h-24 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl flex items-center justify-center text-3xl flex-shrink-0">
-                    {item.image}
+                  <div className="w-24 h-24 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <img 
+                      src={item.image} 
+                      alt={item.name}
+                      className="w-full h-full object-cover rounded-xl"
+                    />
                   </div>
 
                   {/* Product Info */}
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-900 mb-2">{item.name}</h3>
-                    <div className="text-2xl font-bold text-gray-900 mb-2">${item.price}</div>
-                    {!item.inStock && (
-                      <span className="text-red-600 text-sm font-medium">Out of Stock</span>
-                    )}
+                    <div className="text-2xl font-bold text-gray-900 mb-2">{formatPrice(item.price)}</div>
                   </div>
 
                   {/* Quantity Controls */}
@@ -152,7 +116,7 @@ const Cart = () => {
                   {/* Item Total */}
                   <div className="text-right">
                     <div className="text-xl font-bold text-gray-900">
-                      ${(item.price * item.quantity).toFixed(2)}
+                      {formatPrice(item.price * item.quantity)}
                     </div>
                   </div>
                 </div>
@@ -168,33 +132,33 @@ const Cart = () => {
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Subtotal ({cartItems.length} items)</span>
-                  <span className="font-medium">${subtotal.toFixed(2)}</span>
+                  <span className="font-medium">{formatPrice(subtotal)}</span>
                 </div>
 
                 <div className="flex justify-between">
                   <span className="text-gray-600">Shipping</span>
                   <span className="font-medium">
-                    {shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}
+                    {shipping === 0 ? 'Free' : formatPrice(shipping)}
                   </span>
                 </div>
 
                 <div className="flex justify-between">
                   <span className="text-gray-600">Tax</span>
-                  <span className="font-medium">${tax.toFixed(2)}</span>
+                  <span className="font-medium">{formatPrice(tax)}</span>
                 </div>
 
                 <div className="border-t border-gray-200 pt-4">
                   <div className="flex justify-between">
                     <span className="text-lg font-bold text-gray-900">Total</span>
-                    <span className="text-lg font-bold text-gray-900">${total.toFixed(2)}</span>
+                    <span className="text-lg font-bold text-gray-900">{formatPrice(total)}</span>
                   </div>
                 </div>
               </div>
 
-              {subtotal < 50 && (
+              {subtotal < 50000 && (
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
                   <p className="text-sm text-blue-800">
-                    Add <strong>${(50 - subtotal).toFixed(2)}</strong> more for free shipping!
+                    Add <strong>{formatPrice(50000 - subtotal)}</strong> more for free shipping!
                   </p>
                 </div>
               )}
