@@ -7,7 +7,7 @@ import { useShoppingContext } from "@/contexts/ShoppingContext";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { cartItems, updateQuantity, removeItem, getTotalPrice } = useShoppingContext();
+  const { cartItems, updateQuantity, removeFromCart, getTotalPrice } = useShoppingContext();
 
   const formatPrice = (price: number) => {
     return `₦${price.toLocaleString()}`;
@@ -106,7 +106,7 @@ const Cart = () => {
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => removeItem(item.id)}
+                      onClick={() => removeFromCart(item.id)}
                       className="text-red-500 hover:text-red-700 hover:bg-red-50"
                     >
                       <Trash2 className="w-5 h-5" />
