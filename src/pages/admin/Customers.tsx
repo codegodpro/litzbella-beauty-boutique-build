@@ -41,24 +41,24 @@ const AdminCustomers = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
-        <Card className="mb-8 backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl">
+        <Card className="mb-8 bg-white/90 dark:bg-gray-800/70 border-orange-200/50 dark:border-gray-700/20 shadow-lg">
           <CardContent className="p-4">
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/" className="flex items-center gap-2 hover:text-primary transition-colors">
+                  <BreadcrumbLink href="/" className="flex items-center gap-2 hover:text-primary transition-colors text-gray-700 dark:text-gray-300">
                     <Home className="w-4 h-4" />
                     Home
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/admin" className="flex items-center gap-2 hover:text-primary transition-colors">
+                  <BreadcrumbLink href="/admin" className="flex items-center gap-2 hover:text-primary transition-colors text-gray-700 dark:text-gray-300">
                     <Settings className="w-4 h-4" />
                     Admin
                   </BreadcrumbLink>
@@ -77,11 +77,11 @@ const AdminCustomers = () => {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-yellow-600 bg-clip-text text-transparent mb-2">
             Customer Management
           </h1>
-          <p className="text-gray-600 dark:text-gray-300">Manage customer accounts and relationships</p>
+          <p className="text-gray-700 dark:text-gray-300">Manage customer accounts and relationships</p>
         </div>
 
         {/* Customers Table */}
-        <Card className="backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl">
+        <Card className="bg-white/90 dark:bg-gray-800/70 border-orange-200/50 dark:border-gray-700/20 shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
               <Users className="w-5 h-5" />
@@ -102,11 +102,11 @@ const AdminCustomers = () => {
               </TableHeader>
               <TableBody>
                 {customers.map((customer) => (
-                  <TableRow key={customer.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-700/50">
+                  <TableRow key={customer.id} className="hover:bg-orange-50/50 dark:hover:bg-gray-700/50">
                     <TableCell>
                       <div>
                         <div className="font-medium text-gray-900 dark:text-white">{customer.name}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                        <div className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1">
                           <Mail className="w-3 h-3" />
                           {customer.email}
                         </div>
@@ -131,10 +131,10 @@ const AdminCustomers = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-2">
-                        <Button variant="ghost" size="sm" className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <Button variant="ghost" size="sm" className="hover:bg-orange-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
                           <Eye className="w-4 h-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <Button variant="ghost" size="sm" className="hover:bg-orange-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
                           <Edit className="w-4 h-4" />
                         </Button>
                       </div>

@@ -165,17 +165,17 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
-        <Card className="mb-8 backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl transition-all duration-300">
+        <Card className="mb-8 bg-white/90 dark:bg-gray-800/70 border-orange-200/50 dark:border-gray-700/20 shadow-lg">
           <CardContent className="p-4">
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/" className="flex items-center gap-2 hover:text-primary transition-colors">
+                  <BreadcrumbLink href="/" className="flex items-center gap-2 hover:text-primary transition-colors text-gray-700 dark:text-gray-300">
                     <Home className="w-4 h-4" />
                     Home
                   </BreadcrumbLink>
@@ -194,7 +194,7 @@ const AdminDashboard = () => {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-yellow-600 bg-clip-text text-transparent mb-2">
             Admin Dashboard
           </h1>
-          <p className="text-gray-600 dark:text-gray-300">Manage your Litzbella store with comprehensive tools</p>
+          <p className="text-gray-700 dark:text-gray-300">Manage your Litzbella store with comprehensive tools</p>
         </div>
 
         {/* Stats Cards */}
@@ -202,7 +202,7 @@ const AdminDashboard = () => {
           {stats.map((stat, index) => (
             <Card 
               key={index} 
-              className="group backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl hover:border-primary/30 transition-all duration-300 hover:scale-105 animate-slide-up"
+              className="group bg-white/90 dark:bg-gray-800/70 border-orange-200/50 dark:border-gray-700/20 shadow-lg hover:shadow-xl hover:border-primary/30 transition-all duration-300 hover:scale-105 animate-slide-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <CardContent className="p-6">
@@ -224,7 +224,7 @@ const AdminDashboard = () => {
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* Revenue Chart */}
-          <Card className="backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl transition-all duration-300">
+          <Card className="bg-white/90 dark:bg-gray-800/70 border-orange-200/50 dark:border-gray-700/20 shadow-lg hover:shadow-xl transition-all duration-300">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-xl font-bold text-gray-900 dark:text-white">
                 <TrendingUp className="w-5 h-5 text-primary" />
@@ -258,7 +258,7 @@ const AdminDashboard = () => {
           </Card>
 
           {/* Product Categories Chart */}
-          <Card className="backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl transition-all duration-300">
+          <Card className="bg-white/90 dark:bg-gray-800/70 border-orange-200/50 dark:border-gray-700/20 shadow-lg hover:shadow-xl transition-all duration-300">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-xl font-bold text-gray-900 dark:text-white">
                 <PieChart className="w-5 h-5 text-primary" />
@@ -285,7 +285,7 @@ const AdminDashboard = () => {
           {managementSections.map((section, sectionIndex) => (
             <Card 
               key={sectionIndex} 
-              className="group backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in"
+              className="group bg-white/90 dark:bg-gray-800/70 border-orange-200/50 dark:border-gray-700/20 shadow-lg hover:shadow-xl hover:border-primary/30 transition-all duration-300 animate-fade-in"
               style={{ animationDelay: `${sectionIndex * 150}ms` }}
             >
               <CardHeader className="pb-4">
@@ -299,7 +299,7 @@ const AdminDashboard = () => {
                   <Button
                     key={itemIndex}
                     variant="ghost"
-                    className="w-full justify-start h-auto p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-700/50 hover:bg-gradient-to-r hover:from-primary/10 hover:to-yellow-500/10 hover:border-primary/20 border border-transparent transition-all duration-300 group/item"
+                    className="w-full justify-start h-auto p-4 bg-orange-50/80 dark:bg-gray-700/50 hover:bg-gradient-to-r hover:from-primary/10 hover:to-yellow-500/10 hover:border-primary/20 border border-orange-200/50 dark:border-transparent transition-all duration-300 group/item"
                     onClick={() => navigate(item.path)}
                   >
                     <div className="flex items-center gap-3 w-full">
