@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Search, ShoppingBag, User, Menu, ChevronDown, Heart, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -80,13 +81,16 @@ export const Header = () => {
           {/* Main header */}
           <div className="flex items-center justify-between py-2 sm:py-4">
             {/* Logo */}
-            <div className="flex items-center gap-2 sm:gap-3 cursor-pointer hover:shadow-lg hover:shadow-yellow-500/30 transition-all duration-300 hover:-translate-y-1" onClick={() => navigate('/')}>
+            <div className="flex items-center cursor-pointer hover:shadow-lg hover:shadow-yellow-500/30 transition-all duration-300 hover:-translate-y-1" onClick={() => navigate('/')}>
               <img 
                 src="/logo.png" 
                 alt="Litzbella Logo" 
-                className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg shadow-lg"
+                className="w-12 h-12 sm:w-16 sm:h-16 object-contain rounded-lg shadow-2xl border-2 border-yellow-500/30 hover:border-yellow-500 transition-all duration-300"
+                style={{ 
+                  filter: 'brightness(1.1) contrast(1.2) drop-shadow(0 8px 16px rgba(0,0,0,0.4))',
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))'
+                }}
               />
-              <h1 className="text-lg sm:text-2xl font-bold text-white hover:text-yellow-400 transition-colors duration-300">Litzbella</h1>
             </div>
 
             {/* Navigation - Desktop */}
