@@ -1,3 +1,4 @@
+
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -169,7 +170,7 @@ const AdminDashboard = () => {
       
       <main className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
-        <Card className="mb-8 backdrop-blur-md bg-white/70 border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300">
+        <Card className="mb-8 backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl transition-all duration-300">
           <CardContent className="p-4">
             <Breadcrumb>
               <BreadcrumbList>
@@ -201,7 +202,7 @@ const AdminDashboard = () => {
           {stats.map((stat, index) => (
             <Card 
               key={index} 
-              className="group backdrop-blur-md bg-white/70 border-white/20 shadow-xl hover:shadow-2xl hover:border-primary/30 transition-all duration-300 hover:scale-105 animate-slide-up"
+              className="group backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl hover:border-primary/30 transition-all duration-300 hover:scale-105 animate-slide-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <CardContent className="p-6">
@@ -209,7 +210,7 @@ const AdminDashboard = () => {
                   <div className={`p-3 rounded-xl bg-gradient-to-r ${stat.color} text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                     {stat.icon}
                   </div>
-                  <span className="text-sm font-medium text-green-600 bg-green-100 px-2 py-1 rounded-full">
+                  <span className="text-sm font-medium text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30 px-2 py-1 rounded-full">
                     {stat.change}
                   </span>
                 </div>
@@ -223,9 +224,9 @@ const AdminDashboard = () => {
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* Revenue Chart */}
-          <Card className="backdrop-blur-md bg-white/70 border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300">
+          <Card className="backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl transition-all duration-300">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-xl font-bold">
+              <CardTitle className="flex items-center gap-2 text-xl font-bold text-gray-900 dark:text-white">
                 <TrendingUp className="w-5 h-5 text-primary" />
                 Revenue & Orders Trend
               </CardTitle>
@@ -257,9 +258,9 @@ const AdminDashboard = () => {
           </Card>
 
           {/* Product Categories Chart */}
-          <Card className="backdrop-blur-md bg-white/70 border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300">
+          <Card className="backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl transition-all duration-300">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-xl font-bold">
+              <CardTitle className="flex items-center gap-2 text-xl font-bold text-gray-900 dark:text-white">
                 <PieChart className="w-5 h-5 text-primary" />
                 Product Categories
               </CardTitle>
@@ -284,7 +285,7 @@ const AdminDashboard = () => {
           {managementSections.map((section, sectionIndex) => (
             <Card 
               key={sectionIndex} 
-              className="group backdrop-blur-md bg-white/70 border-white/20 shadow-xl hover:shadow-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in"
+              className="group backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in"
               style={{ animationDelay: `${sectionIndex * 150}ms` }}
             >
               <CardHeader className="pb-4">
@@ -298,14 +299,14 @@ const AdminDashboard = () => {
                   <Button
                     key={itemIndex}
                     variant="ghost"
-                    className="w-full justify-start h-auto p-4 backdrop-blur-sm bg-white/50 hover:bg-gradient-to-r hover:from-primary/10 hover:to-yellow-500/10 hover:border-primary/20 border border-transparent transition-all duration-300 group/item"
+                    className="w-full justify-start h-auto p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-700/50 hover:bg-gradient-to-r hover:from-primary/10 hover:to-yellow-500/10 hover:border-primary/20 border border-transparent transition-all duration-300 group/item"
                     onClick={() => navigate(item.path)}
                   >
                     <div className="flex items-center gap-3 w-full">
                       <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover/item:scale-110 transition-transform duration-300">
                         {item.icon}
                       </div>
-                      <span className="font-medium text-left">{item.title}</span>
+                      <span className="font-medium text-left text-gray-900 dark:text-white">{item.title}</span>
                     </div>
                   </Button>
                 ))}

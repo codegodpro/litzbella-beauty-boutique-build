@@ -41,24 +41,24 @@ const AdminProducts = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
-        <Card className="mb-8 backdrop-blur-md bg-white/70 border-white/20 shadow-xl">
+        <Card className="mb-8 backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl">
           <CardContent className="p-4">
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/" className="flex items-center gap-2">
+                  <BreadcrumbLink href="/" className="flex items-center gap-2 hover:text-primary transition-colors">
                     <Home className="w-4 h-4" />
                     Home
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/admin" className="flex items-center gap-2">
+                  <BreadcrumbLink href="/admin" className="flex items-center gap-2 hover:text-primary transition-colors">
                     <Settings className="w-4 h-4" />
                     Admin
                   </BreadcrumbLink>
@@ -78,7 +78,7 @@ const AdminProducts = () => {
             <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-yellow-600 bg-clip-text text-transparent mb-2">
               Product Management
             </h1>
-            <p className="text-gray-600">Manage your product catalog and inventory</p>
+            <p className="text-gray-600 dark:text-gray-300">Manage your product catalog and inventory</p>
           </div>
           <Button className="bg-gradient-to-r from-primary to-yellow-600">
             <Plus className="w-4 h-4 mr-2" />
@@ -87,9 +87,9 @@ const AdminProducts = () => {
         </div>
 
         {/* Products Table */}
-        <Card className="backdrop-blur-md bg-white/70 border-white/20 shadow-xl">
+        <Card className="backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border-white/20 dark:border-gray-700/20 shadow-xl">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
               <Package className="w-5 h-5" />
               All Products
             </CardTitle>
@@ -98,37 +98,37 @@ const AdminProducts = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Product Name</TableHead>
-                  <TableHead>Price</TableHead>
-                  <TableHead>Stock</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Actions</TableHead>
+                  <TableHead className="text-gray-700 dark:text-gray-300">Product Name</TableHead>
+                  <TableHead className="text-gray-700 dark:text-gray-300">Price</TableHead>
+                  <TableHead className="text-gray-700 dark:text-gray-300">Stock</TableHead>
+                  <TableHead className="text-gray-700 dark:text-gray-300">Status</TableHead>
+                  <TableHead className="text-gray-700 dark:text-gray-300">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {products.map((product) => (
-                  <TableRow key={product.id}>
-                    <TableCell className="font-medium">{product.name}</TableCell>
-                    <TableCell>{product.price}</TableCell>
-                    <TableCell>{product.stock}</TableCell>
+                  <TableRow key={product.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-700/50">
+                    <TableCell className="font-medium text-gray-900 dark:text-white">{product.name}</TableCell>
+                    <TableCell className="text-gray-900 dark:text-white">{product.price}</TableCell>
+                    <TableCell className="text-gray-900 dark:text-white">{product.stock}</TableCell>
                     <TableCell>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        product.status === 'Active' ? 'bg-green-100 text-green-800' :
-                        product.status === 'Low Stock' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-red-100 text-red-800'
+                        product.status === 'Active' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
+                        product.status === 'Low Stock' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400' :
+                        'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
                       }`}>
                         {product.status}
                       </span>
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-2">
-                        <Button variant="ghost" size="sm">
+                        <Button variant="ghost" size="sm" className="hover:bg-gray-100 dark:hover:bg-gray-700">
                           <Eye className="w-4 h-4" />
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button variant="ghost" size="sm" className="hover:bg-gray-100 dark:hover:bg-gray-700">
                           <Edit className="w-4 h-4" />
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button variant="ghost" size="sm" className="hover:bg-gray-100 dark:hover:bg-gray-700">
                           <Trash2 className="w-4 h-4" />
                         </Button>
                       </div>
