@@ -52,7 +52,7 @@ export const BannerSlider = () => {
   return (
     <section className="w-full">
       <div className="w-full relative">
-        <div className="h-[400px] sm:h-[500px] lg:h-[600px] w-full overflow-hidden rounded-2xl relative shadow-2xl">
+        <div className="h-[500px] sm:h-[600px] lg:h-[700px] xl:h-[800px] w-full overflow-hidden rounded-2xl relative shadow-2xl">
           {banners.map((banner, index) => (
             <div
               key={banner.id}
@@ -61,7 +61,7 @@ export const BannerSlider = () => {
                 index < currentSlide ? '-translate-x-full' : 'translate-x-full'
               }`}
             >
-              <div className="relative h-full">
+              <div className="relative h-full w-full">
                 <img 
                   src={banner.image} 
                   alt={banner.title}
@@ -71,12 +71,12 @@ export const BannerSlider = () => {
                 <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-8 lg:px-16">
                   <div className="text-white space-y-2 sm:space-y-4 animate-slide-up text-center">
                     <div className="space-y-1 sm:space-y-2">
-                      <p className="text-sm sm:text-base lg:text-lg font-medium opacity-90">{banner.subtitle}</p>
-                      <h2 className="text-3xl sm:text-5xl lg:text-7xl font-black tracking-tight leading-tight">{banner.title}</h2>
-                      <p className="text-xl sm:text-3xl lg:text-5xl font-bold text-yellow-400">{banner.discount}</p>
+                      <p className="text-sm sm:text-base lg:text-lg xl:text-xl font-medium opacity-90">{banner.subtitle}</p>
+                      <h2 className="text-3xl sm:text-5xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-tight">{banner.title}</h2>
+                      <p className="text-xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold text-yellow-400">{banner.discount}</p>
                     </div>
                     <Button 
-                      className="bg-yellow-500 text-black hover:bg-yellow-400 px-6 sm:px-8 py-3 rounded-full font-semibold hover-lift text-base sm:text-lg"
+                      className="bg-yellow-500 text-black hover:bg-yellow-400 px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-full font-semibold hover-lift text-base sm:text-lg lg:text-xl"
                     >
                       {banner.buttonText}
                     </Button>
@@ -89,27 +89,25 @@ export const BannerSlider = () => {
           {/* Navigation buttons */}
           <button
             onClick={prevSlide}
-            className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm p-3 sm:p-4 rounded transition-all duration-300 z-10"
-            style={{ borderRadius: '8px' }}
+            className="absolute left-4 sm:left-6 lg:left-8 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm p-3 sm:p-4 lg:p-5 rounded-lg transition-all duration-300 z-10"
           >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm p-3 sm:p-4 rounded transition-all duration-300 z-10"
-            style={{ borderRadius: '8px' }}
+            className="absolute right-4 sm:right-6 lg:right-8 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm p-3 sm:p-4 lg:p-5 rounded-lg transition-all duration-300 z-10"
           >
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" />
           </button>
 
           {/* Indicators */}
-          <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex space-x-3 sm:space-x-4">
+          <div className="absolute bottom-4 sm:bottom-6 lg:bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 sm:space-x-4">
             {banners.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
                 className={`relative transition-all duration-300 ${
-                  index === currentSlide ? 'w-8 sm:w-10 h-3 sm:h-4' : 'w-3 sm:w-4 h-3 sm:h-4'
+                  index === currentSlide ? 'w-8 sm:w-10 lg:w-12 h-3 sm:h-4 lg:h-5' : 'w-3 sm:w-4 lg:w-5 h-3 sm:h-4 lg:h-5'
                 }`}
               >
                 <div className={`w-full h-full rounded-full transition-all duration-300 ${
