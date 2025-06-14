@@ -1,4 +1,3 @@
-
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -127,7 +126,7 @@ const AdminDashboard = () => {
       description: "Manage pages, content, and website settings",
       items: [
         { title: "Pages", path: "/admin/pages", icon: <FileText className="w-5 h-5" /> },
-        { title: "Website Settings", path: "/admin/website", icon: <Globe className="w-5 h-5" /> },
+        { title: "Website Settings", path: "/admin/settings", icon: <Globe className="w-5 h-5" /> },
         { title: "Design & Theme", path: "/admin/design", icon: <Palette className="w-5 h-5" /> },
       ]
     },
