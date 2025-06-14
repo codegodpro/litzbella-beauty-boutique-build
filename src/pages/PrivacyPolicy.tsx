@@ -98,8 +98,8 @@ const PrivacyPolicy = () => {
                 </p>
                 <div className="mt-3 p-4 bg-yellow-50 rounded-lg">
                   <p className="text-gray-700"><strong>Email:</strong> privacy@litzbella.com</p>
-                  <p className="text-gray-700"><strong>Phone:</strong> +234 (0) 123 456 7890</p>
-                  <p className="text-gray-700"><strong>Address:</strong> 123 Beauty Plaza, Victoria Island, Lagos, Nigeria</p>
+                  <p className="text-gray-700"><strong>Phone:</strong> +2347067805145</p>
+                  <p className="text-gray-700"><strong>Address:</strong> APT gate 1 Imo Extension, Shop no 6: Balogun Trade fair Lagos, Opp badagry Express way Lagos, Nigeria</p>
                 </div>
               </div>
             </CardContent>

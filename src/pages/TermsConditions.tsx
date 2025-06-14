@@ -54,7 +54,7 @@ const TermsConditions = () => {
                 <div className="space-y-3 text-gray-700">
                   <p>All prices are in Nigerian Naira (NGN) and include applicable taxes unless otherwise stated.</p>
                   <p>We reserve the right to change prices at any time without notice. However, if you have already placed an order, the price at the time of order will be honored.</p>
-                  <p>Payment must be received before products are shipped. We accept various payment methods as displayed during checkout.</p>
+                  <p>Payment must be received before products are shipped. We accept bank transfers and card payments as displayed during checkout.</p>
                 </div>
               </div>
 
@@ -122,8 +122,8 @@ const TermsConditions = () => {
                 </p>
                 <div className="mt-3 p-4 bg-yellow-50 rounded-lg">
                   <p className="text-gray-700"><strong>Email:</strong> legal@litzbella.com</p>
-                  <p className="text-gray-700"><strong>Phone:</strong> +234 (0) 123 456 7890</p>
-                  <p className="text-gray-700"><strong>Address:</strong> 123 Beauty Plaza, Victoria Island, Lagos, Nigeria</p>
+                  <p className="text-gray-700"><strong>Phone:</strong> +2347067805145</p>
+                  <p className="text-gray-700"><strong>Address:</strong> APT gate 1 Imo Extension, Shop no 6: Balogun Trade fair Lagos, Opp badagry Express way Lagos, Nigeria</p>
                 </div>
               </div>
             </CardContent>

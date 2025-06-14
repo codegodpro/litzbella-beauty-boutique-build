@@ -8,20 +8,20 @@ export const Footer = () => {
     "Company": [
       { name: "About Us", href: "/about" },
       { name: "Contact", href: "/contact" },
-      { name: "Careers", href: "/careers" },
-      { name: "Blog", href: "/blog" }
+      { name: "Help & Support", href: "/help-support" },
+      { name: "Track Order", href: "/track-order" }
     ],
     "Customer Service": [
-      { name: "Help Center", href: "/help" },
-      { name: "Returns", href: "/returns" },
-      { name: "Shipping Info", href: "/shipping" },
-      { name: "Size Guide", href: "/size-guide" }
+      { name: "My Orders", href: "/my-orders" },
+      { name: "Return Policy", href: "/return-policy" },
+      { name: "Refund Policy", href: "/refund-policy" },
+      { name: "Shipping Info", href: "/help-support" }
     ],
     "Legal": [
-      { name: "Privacy Policy", href: "/privacy" },
-      { name: "Terms of Service", href: "/terms" },
-      { name: "Cookie Policy", href: "/cookies" },
-      { name: "GDPR", href: "/gdpr" }
+      { name: "Privacy Policy", href: "/privacy-policy" },
+      { name: "Terms of Service", href: "/terms-conditions" },
+      { name: "Refund Policy", href: "/refund-policy" },
+      { name: "Return Policy", href: "/return-policy" }
     ]
   };
 
@@ -39,18 +39,18 @@ export const Footer = () => {
               <h3 className="text-xl font-bold">Litzbella</h3>
             </div>
             <p className="text-gray-400 text-sm">
-              Your premier destination for luxury cosmetics and beauty products. 
-              Enhancing natural beauty with premium quality products.
+              Where beauty meets confidence. Enhancing your natural glow with high-quality 
+              eyelash extensions and makeup essentials.
             </p>
             <div className="flex space-x-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
+              <a href="https://www.facebook.com/litz.bella.5?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
                 <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" className="w-4 h-4 filter invert" />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/twitter.svg" alt="Twitter" className="w-4 h-4 filter invert" />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
+              <a href="https://www.instagram.com/litzbella_world?igsh=djR0eHV6N2ZyYXk0" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
                 <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" className="w-4 h-4 filter invert" />
+              </a>
+              <a href="https://www.youtube.com/channel/UCeZHeQxjvWXYR4qlF9P3aTg" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube" className="w-4 h-4 filter invert" />
               </a>
             </div>
           </div>
