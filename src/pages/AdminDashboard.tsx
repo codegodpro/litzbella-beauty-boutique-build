@@ -299,7 +299,7 @@ const AdminDashboard = () => {
                   <Button
                     key={itemIndex}
                     variant="ghost"
-                    className="w-full justify-start h-auto p-4 bg-orange-50/80 dark:bg-gray-700/50 hover:bg-gradient-to-r hover:from-primary/10 hover:to-yellow-500/10 hover:border-primary/20 border border-orange-200/50 dark:border-transparent transition-all duration-300 group/item"
+                    className="w-full justify-start h-auto p-4 bg-orange-50/80 dark:bg-gray-700/50 hover:bg-orange-100 dark:hover:bg-gray-600 hover:border-primary/50 border border-orange-200/50 dark:border-transparent transition-all duration-300 group/item"
                     onClick={() => navigate(item.path)}
                   >
                     <div className="flex items-center gap-3 w-full">

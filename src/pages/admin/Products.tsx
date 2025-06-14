@@ -1,4 +1,3 @@
-
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -107,7 +106,7 @@ const AdminProducts = () => {
               </TableHeader>
               <TableBody>
                 {products.map((product) => (
-                  <TableRow key={product.id} className="hover:bg-orange-50/50 dark:hover:bg-gray-700/50">
+                  <TableRow key={product.id} className="hover:bg-orange-100/70 dark:hover:bg-gray-700/50">
                     <TableCell className="font-medium text-gray-900 dark:text-white">{product.name}</TableCell>
                     <TableCell className="text-gray-900 dark:text-white">{product.price}</TableCell>
                     <TableCell className="text-gray-900 dark:text-white">{product.stock}</TableCell>
@@ -122,13 +121,13 @@ const AdminProducts = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-2">
-                        <Button variant="ghost" size="sm" className="hover:bg-orange-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                        <Button variant="ghost" size="sm" className="hover:bg-orange-200/70 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300">
                           <Eye className="w-4 h-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" className="hover:bg-orange-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                        <Button variant="ghost" size="sm" className="hover:bg-orange-200/70 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300">
                           <Edit className="w-4 h-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" className="hover:bg-orange-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                        <Button variant="ghost" size="sm" className="hover:bg-orange-200/70 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300">
                           <Trash2 className="w-4 h-4" />
                         </Button>
                       </div>
